@@ -24,8 +24,7 @@ Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用
 本仓库**只存放发布文件和文档**，不包含源代码。节点软件是 VONODE LLC 的专有软件。
 
 > [!NOTE]
-> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases)
-> 页面。在此之前这里没有可下载的文件，下面的命令只用来说明格式。
+> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases) 页面；在此之前，下面的下载命令无法使用。
 
 ## 目录
 
@@ -55,7 +54,7 @@ Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用
 | **还有更多** | 运营商代码（USSD）、自动任务、代理、备份与恢复、换绑到新手机，都在同一个 App 里。 |
 
 你和你的号码之间没有 Vonode 云服务。App 通过加密 SSH 直接连接你的节点，并固定节点的主机密钥；
-VONODE LLC 运营的中继只负责投递 Apple 通知。短信、通话记录和设置都保存在你运行的节点上。
+短信、通话记录和设置都保存在你运行的节点上。VONODE LLC 运营的中继负责投递 Apple 通知和确认订阅，不存储明文短信内容；详见[隐私政策](https://vonode.cc/zh-hans/privacy/)。
 
 节点没有网页界面：装好、和 App 配对，之后的一切都在 App 里管理。
 
@@ -80,8 +79,7 @@ Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大�
 ## 下载与校验
 
 > [!NOTE]
-> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases)
-> 页面。在此之前这里没有可下载的文件，下面的命令只用来说明格式。
+> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases) 页面；在此之前，下面的下载命令无法使用。
 
 每个版本都发布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 页面。
 把下面的 `VERSION` 设为该页面上显示的版本标签（文件名使用同一标签）。

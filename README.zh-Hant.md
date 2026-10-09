@@ -24,8 +24,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 本儲存庫**只存放發行檔案和文件**，不包含原始碼。節點軟體是 VONODE LLC 的專有軟體。
 
 > [!NOTE]
-> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases)
-> 頁面。在此之前這裡沒有可下載的檔案，下面的指令只用來說明格式。
+> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases) 頁面；在此之前，下面的下載指令無法使用。
 
 ## 目錄
 
@@ -55,7 +54,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 | **還有更多** | 電信業者代碼（USSD）、自動任務、代理、備份與還原、換綁到新手機，都在同一個 App 裡。 |
 
 你和你的號碼之間沒有 Vonode 雲端服務。App 透過加密 SSH 直接連線你的節點，並固定節點的主機金鑰；
-VONODE LLC 營運的中繼伺服器只負責傳送 Apple 通知。簡訊、通話紀錄和設定都儲存在你運作的節點上。
+簡訊、通話紀錄和設定都儲存在你運作的節點上。VONODE LLC 營運的中繼負責傳送 Apple 通知和確認訂閱，不儲存明文簡訊內容；詳見[隱私權政策](https://vonode.cc/zh-hant/privacy/)。
 
 節點沒有網頁介面：安裝好、和 App 配對，之後的一切都在 App 裡管理。
 
@@ -81,8 +80,7 @@ App Store 目前不提供。
 ## 下載與驗證
 
 > [!NOTE]
-> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases)
-> 頁面。在此之前這裡沒有可下載的檔案，下面的指令只用來說明格式。
+> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases) 頁面；在此之前，下面的下載指令無法使用。
 
 每個版本都發布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 頁面。
 請把下面的 `VERSION` 設為該頁面上顯示的版本標籤（檔名使用同一標籤）。

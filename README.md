@@ -26,9 +26,8 @@ This repository holds **release files and documentation only**. It contains no s
 The node software is proprietary software of VONODE LLC.
 
 > [!NOTE]
-> **The first public release has not been published yet.** Once it is, it will appear on the
-> [Releases](https://github.com/vonode/vonode-releases/releases) page. Until then there is nothing to
-> download here, and the commands below show the format only.
+> **The first public release has not been published yet.** When it is, it will appear on the
+> [Releases](https://github.com/vonode/vonode-releases/releases) page; until then the download commands below will not work.
 
 ## Contents
 
@@ -58,8 +57,9 @@ The node software is proprietary software of VONODE LLC.
 | **And the rest** | Carrier codes (USSD), automations, proxies, backups and moving to a new phone, all in the same app. |
 
 There is no Vonode cloud between you and your numbers. The app talks to your node directly over
-encrypted SSH and pins the node's host key. A small relay run by VONODE LLC only delivers Apple
-notifications. Messages, call history and settings stay on the node you operate.
+encrypted SSH and pins the node's host key. Messages, call history and settings stay on the node you operate.
+A small relay run by VONODE LLC delivers Apple notifications and confirms subscriptions; it does not
+store plaintext message content. Details are in the [Privacy Policy](https://vonode.cc/privacy/).
 
 The node has no web interface: install it once, pair it with the app, and manage everything from
 the app.
@@ -85,9 +85,8 @@ Wi-Fi calling.
 ## Download and verify
 
 > [!NOTE]
-> **The first public release has not been published yet.** Once it is, it will appear on the
-> [Releases](https://github.com/vonode/vonode-releases/releases) page. Until then there is nothing to
-> download here, and the commands below show the format only.
+> **The first public release has not been published yet.** When it is, it will appear on the
+> [Releases](https://github.com/vonode/vonode-releases/releases) page; until then the download commands below will not work.
 
 Every release is published on the **[latest release](https://github.com/vonode/vonode-releases/releases/latest)**
 page. Set `VERSION` below to the release tag shown on that page (file names use the same tag).
