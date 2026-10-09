@@ -80,7 +80,7 @@ Wi-Fi calling.
 ## Download and verify
 
 Every release is published on the **[latest release](https://github.com/vonode/vonode-releases/releases/latest)**
-page. Replace `<version>` below with the release tag, for example the one shown on that page.
+page. Set `VERSION` below to the release tag shown on that page (file names use the same tag).
 
 | File | What it is |
 |---|---|
@@ -95,7 +95,7 @@ page. Replace `<version>` below with the release tag, for example the one shown 
 ### Checksum
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # replace with the release tag
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256
@@ -158,7 +158,7 @@ Cellular module needs its USB identity switched once first; the steps are on the
 ### 2. Download, verify and extract
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # replace with the release tag
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256

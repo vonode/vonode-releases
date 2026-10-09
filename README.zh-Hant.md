@@ -77,7 +77,7 @@ App Store 目前不提供。
 ## 下載與驗證
 
 每個版本都發布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 頁面。
-請把下面的 `<version>` 換成版本標籤，例如該頁面上顯示的標籤。
+請把下面的 `VERSION` 設為該頁面上顯示的版本標籤（檔名使用同一標籤）。
 
 | 檔案 | 說明 |
 |---|---|
@@ -92,7 +92,7 @@ App Store 目前不提供。
 ### 核對 SHA-256
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # 換成版本標籤
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256
@@ -151,7 +151,7 @@ ls /dev/ttyUSB* /dev/cdc-wdm*
 ### 2. 下載、驗證並解壓縮
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # 換成版本標籤
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256

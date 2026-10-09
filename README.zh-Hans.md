@@ -76,7 +76,7 @@ Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大�
 ## 下载与校验
 
 每个版本都发布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 页面。
-把下面的 `<version>` 换成版本标签，例如该页面上显示的标签。
+把下面的 `VERSION` 设为该页面上显示的版本标签（文件名使用同一标签）。
 
 | 文件 | 说明 |
 |---|---|
@@ -91,7 +91,7 @@ Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大�
 ### 校验 SHA-256
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # 换成版本标签
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256
@@ -150,7 +150,7 @@ ls /dev/ttyUSB* /dev/cdc-wdm*
 ### 2. 下载、校验并解压
 
 ```sh
-VERSION=<version>
+VERSION=vX.Y.Z        # 换成版本标签
 BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz
 curl -fLO $BASE/vonode_${VERSION}_linux_amd64_commercial.tar.gz.sha256
