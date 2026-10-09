@@ -42,7 +42,7 @@ The node software is proprietary software of VONODE LLC.
 
 ## Features
 
-| | |
+| Feature | What it does |
 |---|---|
 | **Messages** | Read and send SMS for every number on the node. Junk is sorted automatically, and a reply goes out from the number that received the thread. |
 | **Calls** | Make and answer calls through your node. Incoming calls ring on your iPhone through CallKit, even when the app is in the background. |
@@ -63,7 +63,7 @@ the app.
 
 Check the full list on the **[hardware page](https://vonode.cc/hardware/)** before you buy anything.
 
-| | |
+| Item | Requirement |
 |---|---|
 | **Host computer** | 64-bit x86 (amd64) Linux with systemd: Debian 12, Ubuntu 22.04 or later, or Fedora. Root access and the full `iproute2` package. An Intel N100 mini PC, a used thin client or a NUC works well; 2 GB RAM and 4 GB disk are enough for the node. Verified platform: Ubuntu 22.04, amd64. |
 | **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
