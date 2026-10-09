@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-latest%20release-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="Download" src="https://img.shields.io/badge/releases-first%20release%20coming%20soon-2a9468?style=flat-square"></a>
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="Platform" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -24,6 +24,11 @@ on Wi-Fi calling, all through hardware you run yourself.
 
 This repository holds **release files and documentation only**. It contains no source code.
 The node software is proprietary software of VONODE LLC.
+
+> [!NOTE]
+> **The first public release has not been published yet.** Once it is, it will appear on the
+> [Releases](https://github.com/vonode/vonode-releases/releases) page. Until then there is nothing to
+> download here, and the commands below show the format only.
 
 ## Contents
 
@@ -78,6 +83,11 @@ Calls over the cellular network have not been confirmed on any module yet; calls
 Wi-Fi calling.
 
 ## Download and verify
+
+> [!NOTE]
+> **The first public release has not been published yet.** Once it is, it will appear on the
+> [Releases](https://github.com/vonode/vonode-releases/releases) page. Until then there is nothing to
+> download here, and the commands below show the format only.
 
 Every release is published on the **[latest release](https://github.com/vonode/vonode-releases/releases/latest)**
 page. Set `VERSION` below to the release tag shown on that page (file names use the same tag).

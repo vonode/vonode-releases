@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="下载" src="https://img.shields.io/badge/download-latest%20release-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="下载" src="https://img.shields.io/badge/releases-first%20release%20coming%20soon-2a9468?style=flat-square"></a>
   <a href="https://vonode.cc/zh-hans/install/"><img alt="安装指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -22,6 +22,10 @@ Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用
 收发短信、拨打和接听电话、切换 eSIM 配置文件、开启 Wi-Fi 通话，全部通过你自己运行的硬件完成。
 
 本仓库**只存放发布文件和文档**，不包含源代码。节点软件是 VONODE LLC 的专有软件。
+
+> [!NOTE]
+> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases)
+> 页面。在此之前这里没有可下载的文件，下面的命令只用来说明格式。
 
 ## 目录
 
@@ -74,6 +78,10 @@ ECM 固件）。蜂窝网络通话目前还没有在任何模组上得到确认�
 Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大陆的 App Store 目前不提供。
 
 ## 下载与校验
+
+> [!NOTE]
+> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases)
+> 页面。在此之前这里没有可下载的文件，下面的命令只用来说明格式。
 
 每个版本都发布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 页面。
 把下面的 `VERSION` 设为该页面上显示的版本标签（文件名使用同一标签）。

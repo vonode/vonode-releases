@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="下載" src="https://img.shields.io/badge/download-latest%20release-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="下載" src="https://img.shields.io/badge/releases-first%20release%20coming%20soon-2a9468?style=flat-square"></a>
   <a href="https://vonode.cc/zh-hant/install/"><img alt="安裝指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -22,6 +22,10 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 收發簡訊、撥打和接聽電話、切換 eSIM 設定檔、開啟 Wi-Fi 通話，全部透過你自己運作的硬體完成。
 
 本儲存庫**只存放發行檔案和文件**，不包含原始碼。節點軟體是 VONODE LLC 的專有軟體。
+
+> [!NOTE]
+> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases)
+> 頁面。在此之前這裡沒有可下載的檔案，下面的指令只用來說明格式。
 
 ## 目錄
 
@@ -75,6 +79,10 @@ Vonode App 在中國大陸以外的 App Store 國家和地區提供，台灣、�
 App Store 目前不提供。
 
 ## 下載與驗證
+
+> [!NOTE]
+> **首個正式版本尚未發布。** 發布後會出現在 [Releases](https://github.com/vonode/vonode-releases/releases)
+> 頁面。在此之前這裡沒有可下載的檔案，下面的指令只用來說明格式。
 
 每個版本都發布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 頁面。
 請把下面的 `VERSION` 設為該頁面上顯示的版本標籤（檔名使用同一標籤）。
