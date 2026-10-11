@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="Download" src="https://img.shields.io/badge/releases-first%20release%20coming%20soon-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="Download" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=release&color=2a9468"></a>
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="Platform" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -25,17 +25,13 @@ on Wi-Fi calling, all through hardware you run yourself.
 This repository holds **release files and documentation only**. It contains no source code.
 The node software is proprietary software of VONODE LLC.
 
-> [!NOTE]
-> **The first public release has not been published yet.** When it is, it will appear on the
-> [Releases](https://github.com/vonode/vonode-releases/releases) page; until then the download commands below will not work.
-
 ## Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
 - [Download and verify](#download-and-verify)
 - [Install with the systemd package (recommended)](#install-with-the-systemd-package-recommended)
-- [Install with Docker Compose (coming soon)](#install-with-docker-compose-coming-soon)
+- [Install with Docker Compose](#install-with-docker-compose)
 - [Pair the app](#pair-the-app)
 - [Free plan or subscription](#free-plan-or-subscription)
 - [Upgrade](#upgrade)
@@ -70,7 +66,7 @@ Check the full list on the **[hardware page](https://vonode.cc/hardware/)** befo
 
 | Item | Requirement |
 |---|---|
-| **Host computer** | 64-bit x86 (amd64) Linux with systemd: Debian 12, Ubuntu 22.04 or later, or Fedora. Root access and the full `iproute2` package. An Intel N100 mini PC, a used thin client or a NUC works well; 2 GB RAM and 4 GB disk are enough for the node. Verified platform: Ubuntu 22.04, amd64. |
+| **Host computer** | 64-bit x86 (amd64) Linux: Debian 12, Ubuntu 22.04 or later, or Fedora, with systemd for the install package or Docker Engine with Compose v2 for Docker. Root access; the systemd package also needs the full `iproute2` package (the Docker image brings its own). An Intel N100 mini PC, a used thin client or a NUC works well; 2 GB RAM and 4 GB disk are enough for the node. Verified platform: Ubuntu 22.04, amd64. |
 | **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
 | **Antennas and power** | Attach both antennas (main and diversity). Use a powered USB hub when you connect more than one module. |
 | **SIM and network** | A SIM with its PIN removed, or a removable eUICC card for eSIM. Wi-Fi calling enabled on the plan by your carrier. TCP port 2222 reachable from the phone, through a port forward or a VPN such as WireGuard or Tailscale. |
@@ -84,10 +80,6 @@ Wi-Fi calling.
 
 ## Download and verify
 
-> [!NOTE]
-> **The first public release has not been published yet.** When it is, it will appear on the
-> [Releases](https://github.com/vonode/vonode-releases/releases) page; until then the download commands below will not work.
-
 Every release is published on the **[latest release](https://github.com/vonode/vonode-releases/releases/latest)**
 page. Set `VERSION` below to the release tag shown on that page (file names use the same tag).
 
@@ -95,6 +87,7 @@ page. Set `VERSION` below to the release tag shown on that page (file names use 
 |---|---|
 | `vonode_<version>_linux_amd64_commercial.tar.gz` | The install package: node program, `install.sh`, systemd units, `docker/` setup, guides, licenses |
 | `vonode_<version>_linux_amd64_commercial.tar.gz.sha256` | SHA-256 checksum of the install package |
+| `docker-compose.yml` and `docker-compose.yml.sha256` | The Docker Compose file for this release, with the image pinned by digest, and its checksum |
 | `vonode_<version>_linux_amd64_commercial` and `.sig` | The node program as a single file and its release signature, used by in-app software updates |
 | `latest-commercial.json` | The signed update manifest that nodes read to offer updates in the app |
 | `vonode_<version>_linux_amd64_commercial.sources.tar` | Corresponding source of the GPL and LGPL components |
@@ -212,11 +205,11 @@ sudo ufw allow 2222/tcp
 ```
 
 Show the pairing QR code with the address the phone will use to reach the node: your DDNS name or
-public IP when you forward the port, or the host's VPN or LAN address. Add `-port <port>` if you
-forward a different port.
+public IP when you forward the port, or the host's VPN or LAN address. If the router forwards a
+different external port, give that port after `-port`.
 
 ```sh
-sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.example.com
+sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.example.com -port 2222
 ```
 
 The terminal shows the QR code as a block graphic. It is valid for five minutes and works once;
@@ -229,96 +222,122 @@ run the command again for a new one. Continue with [Pair the app](#pair-the-app)
 | Status | `systemctl status vonode vonode-gateway` |
 | Logs | `journalctl -u vonode -f` |
 | Restart | `sudo systemctl restart vonode` (up to two minutes: the node de-registers Wi-Fi calling and closes its tunnels first) |
-| New pairing code | `sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host <address>` |
+| New pairing code | `sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host <address> -port 2222` |
 | Lost administrator password | `sudo systemctl stop vonode`, then `sudo /opt/vonode/vonode reset-password -c /opt/vonode/config/config.yaml`, then `sudo systemctl start vonode`. All phones are signed out and pair again. |
 
-## Install with Docker Compose (coming soon)
+## Install with Docker Compose
 
-> [!IMPORTANT]
-> **The commercial Docker image is not published yet.** Until it is, use the
-> [systemd package](#install-with-the-systemd-package-recommended), which is the supported install
-> path for this release. The steps below show how the Docker setup will work. Pairing and plans
-> work the same way with either.
+Docker Compose runs the same node as two containers from the image
+[`vonode/vonode`](https://hub.docker.com/r/vonode/vonode) on Docker Hub: `vonode`, the core, which
+talks to the modules, and `vonode-gateway`, the unprivileged SSH service the app connects to on
+TCP 2222. Pairing, plans and the app work exactly as with the systemd package. Image tags follow
+the release (`1.3.0` for `v1.3.0`, plus `latest`); images are for 64-bit x86 (amd64) hosts. Each
+release also publishes a `docker-compose.yml` that pins its image by digest.
 
-The Docker setup runs the same node as two containers from one image, `vonode/vonode`:
-`vonode` (the core, host network, talks to the modules) and `vonode-gateway` (the unprivileged
-SSH service the app connects to on TCP 2222). It is in the `docker/` folder of the install
-package.
+Use one install method per host: do not run the Docker setup next to the systemd package.
 
 ### 1. Prepare the host
 
-Same Linux, module and SIM requirements as above. Stop ModemManager and install Docker Engine with
-the Compose plugin; Docker's convenience script works on Debian, Ubuntu and Fedora. The last
-command must print a Compose v2 version.
+The Linux, module and SIM requirements are the same as above. Docker Desktop on macOS or Windows
+cannot reach USB modules; use Docker Engine on Linux. Stop ModemManager, check that Linux sees the
+module, then install Docker Engine with the Compose plugin. Docker's convenience script works on
+Debian, Ubuntu and Fedora; the last command must print a Compose v2 version.
 
 ```sh
 sudo systemctl disable --now ModemManager
+lsusb | grep -i -E 'quectel|2c7c|qualcomm|05c6'
+ls /dev/ttyUSB* /dev/cdc-wdm*
 curl -fsSL https://get.docker.com | sh
 sudo systemctl enable --now docker
 docker compose version
 ```
 
-### 2. Download and verify the package
+The module's serial and QMI ports come from the host kernel's `option` and `qmi_wwan` drivers,
+which load automatically when a module is plugged in. If `lsusb` lists the module but
+`/dev/ttyUSB*` is missing, run `sudo modprobe -a option qmi_wwan` and plug the module in again.
 
-Download, check and extract the install package exactly as in
-[Download and verify](#download-and-verify), then change into its `docker/` folder:
+**Device access.** The `vonode` container uses the host network, runs privileged and sees the
+host's whole `/dev`, because it drives the USB serial and QMI ports, creates TUN/XFRM interfaces
+for Wi-Fi calling and uses ALSA for call audio. Binding all of `/dev` means a module plugged in
+later, or one that comes back with other `/dev/ttyUSB*` numbers after a reset, appears without a
+restart. The `vonode-gateway` container runs as UID 10001 with a read-only file system and no
+capabilities, and only publishes TCP 2222.
+
+### 2. Download the Compose file
 
 ```sh
-cd vonode_${VERSION}_linux_amd64_commercial/docker
+mkdir -p ~/vonode && cd ~/vonode
+VERSION=vX.Y.Z        # replace with the release tag
+BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
+curl -fLO $BASE/docker-compose.yml
+curl -fLO $BASE/docker-compose.yml.sha256
+sha256sum -c docker-compose.yml.sha256
 ```
 
-### 3. Run the setup script
+Optional settings go into a `.env` file in the same folder, for example `TZ=Europe/London` for the
+node's time zone (the default is UTC) or `VONODE_SSH_PORT=2022` to publish the SSH service on
+another host port.
+
+### 3. Start the node
 
 ```sh
-sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
+sudo docker compose up -d
+sudo docker compose ps
 ```
 
-- `--host` is the domain or IP address the phone uses to reach the node. Without it, the script
-  proposes the host's LAN address, which is fine for a first pairing on the same Wi-Fi.
-- `--image` takes the verified `vonode/vonode@sha256:<digest>` from the release notes of a version
-  that provides one. When the package already carries its verified image, you can leave it out.
-  A mutable tag is refused unless you add `--allow-tag`.
+Docker pulls the pinned image and starts both containers; after about half a minute both show
+`healthy`. The node keeps its configuration, database and logs in `config/`, `data/` and `logs/`
+next to `docker-compose.yml`. On first start it creates a random administrator password; the plain
+text is in `config/initial-admin-password`, readable by root only.
 
-The script checks the host (Linux, amd64, root, Docker, Compose, ModemManager), lists the
-modules it found with their device nodes, creates `config/`, `data/` and `logs/` next to itself,
-writes `.env` and `docker-compose.override.yml`, pulls the image, starts both containers and waits
-until both report healthy (about half a minute on a first start). It then prints where the
-initial administrator password is (`config/initial-admin-password`, root only) and shows the
-pairing QR code. Open TCP 2222 on the host firewall as for the systemd package. Pass
-`--port <n>` to use another SSH port and `--public-port <n>` when the router forwards a different
-external port.
+### 4. Open the port and show the pairing QR code
 
-Re-running `sudo ./setup.sh` keeps your configuration and data. `./setup.sh --help` explains
-every option.
+Allow TCP 2222 through the host firewall and, if the phone will connect from outside your network,
+forward it on your router (or use a VPN). Then show the pairing QR code with the address the phone
+will use, and the port it connects to:
 
-### Device mapping
+```sh
+sudo ufw allow 2222/tcp
+sudo docker compose exec vonode /app/vonode pair -c /app/config/config.yaml -host node.example.com -port 2222
+```
 
-By default `setup.sh` binds the whole `/dev` into the core, so a module plugged in later, or one
-that re-enumerates with other `/dev/ttyUSB*` numbers after a reset, appears without re-running
-the script. The core runs privileged because it needs TUN/XFRM, USB and ALSA.
-
-To give the core only the module device nodes present now, use `sudo ./setup.sh --devices`; in
-that mode, re-run `setup.sh` after plugging in, moving or replacing a module. `--no-devices` maps
-nothing. The chosen mode is remembered in `.env`.
+The code is valid for five minutes and works once. Continue with [Pair the app](#pair-the-app).
 
 ### Everyday operation with Docker
 
-Run these in the package's `docker/` folder.
+Run these in the folder that holds `docker-compose.yml`.
 
 | Task | Command |
 |---|---|
 | Status (both services healthy) | `sudo docker compose ps` |
 | Logs | `sudo docker compose logs -f vonode` |
 | New pairing code | `sudo docker compose exec vonode /app/vonode pair -c /app/config/config.yaml -host <address> -port 2222` |
-| Added or moved a module | `sudo ./setup.sh` |
 | Restart (up to two minutes) | `sudo docker compose restart vonode` |
-| Stop, keep data | `sudo ./setup.sh --uninstall` |
-| Remove everything | `sudo ./setup.sh --uninstall --purge` |
+| Stop, keep data | `sudo docker compose down` |
+| Start again | `sudo docker compose up -d` |
 | Lost administrator password | `sudo docker compose stop vonode`, `sudo docker compose run --rm --no-deps vonode reset-password -c /app/config/config.yaml`, `sudo docker compose start vonode` |
 
 > [!WARNING]
-> Never run `docker compose down -v`. The `vonode_gateway-private` volume holds the SSH host key
-> that paired phones pin. `setup.sh --uninstall` keeps it; only `--purge` removes it.
+> Do not run `docker compose down -v` unless you want to delete the node. The
+> `vonode_gateway-private` volume holds the SSH host key that paired phones pin; without it every
+> phone must pair again.
+
+### Alternative: the setup script
+
+The install package also contains a `docker/` folder with `setup.sh`, which checks the host, lists
+the modules it finds, writes `.env` and a device override, starts both containers and prints the
+pairing QR code. Download and extract the package as in [Download and verify](#download-and-verify),
+then:
+
+```sh
+cd vonode_${VERSION}_linux_amd64_commercial/docker
+sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
+```
+
+The release notes give the image as `vonode/vonode@sha256:<digest>`. `--devices` maps only the
+module device nodes present now instead of the whole `/dev`; `./setup.sh --help` explains every
+option. Re-run `sudo ./setup.sh` after adding or moving a module in that mode;
+`sudo ./setup.sh --uninstall` stops the node and keeps its data.
 
 ## Pair the app
 
@@ -347,12 +366,15 @@ Hardware, SIM plans, carrier charges and hosting are not included.
 
 ## Upgrade
 
-- **In the app:** nodes offer signed updates under **More > Software update**. The node checks the
+- **In the app:** nodes installed with the systemd package offer signed updates under **More > Software update**. The node checks the
   update's signature before it installs it.
 - **systemd package:** download and verify the new package, extract it and run `sudo ./install.sh`
   from its top folder. Configuration, database and the SSH host key are kept.
-- **Docker:** put the new `vonode/vonode@sha256:<digest>` in `.env` (`VONODE_IMAGE=...`) or pass it
-  with `--image`, then run `sudo ./setup.sh` again. Both containers always run the same image.
+- **Docker Compose:** download the new release's `docker-compose.yml` and `docker-compose.yml.sha256`
+  into the same folder and check them, then run `sudo docker compose pull` and `sudo docker compose up -d`.
+  Configuration, database and the SSH host key are kept, and both containers always run the same image.
+  In-app updates do not replace the program inside a container; update the image instead. With the
+  setup script, run `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` with the new digest.
 
 Back up first: **More > Backups** in the app. A backup carries messages, call history and the
 node's subscription binding; keep it private. To move to new hardware, create and download a
@@ -370,14 +392,16 @@ sudo systemctl daemon-reload
 sudo rm -rf /opt/vonode /var/lib/vonode-gateway
 ```
 
-Docker: `sudo ./setup.sh --uninstall` stops the node and keeps everything; add `--purge` to
-delete containers, volumes, `config/`, `data/` and `logs/`.
+Docker Compose, in the folder with `docker-compose.yml`: `sudo docker compose down` stops the node
+and keeps everything. To delete the node and its data, run `sudo docker compose down -v`, then
+`sudo rm -rf config data logs`. With the setup script, `sudo ./setup.sh --uninstall` keeps the data
+and `--uninstall --purge` deletes it.
 
 ## Troubleshooting
 
 | Problem | What to do |
 |---|---|
-| ModemManager is running | `sudo systemctl disable --now ModemManager`, then `sudo systemctl restart vonode` (with Docker, run `sudo ./setup.sh` again). |
+| ModemManager is running | `sudo systemctl disable --now ModemManager`, then `sudo systemctl restart vonode` (with Docker, `sudo docker compose restart vonode`). |
 | No module detected | If `lsusb` shows nothing from Quectel (`2c7c`), try another cable and port, use a powered hub and check `sudo dmesg \| tail -n 30` for USB power errors. If `lsusb` lists the module but `/dev/ttyUSB*` is missing, run `sudo modprobe -a option qmi_wwan`, then unplug and replug. |
 | The app cannot connect | From a device outside your network, run `nc -vz node.example.com 2222`. No answer means the router forward or firewall is wrong, or your provider uses carrier-grade NAT; then use a VPN and pair with the host's VPN address. |
 | Pairing code expired or used | Codes last five minutes and work once. Run the `pair` command again. |

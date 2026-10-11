@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="下载" src="https://img.shields.io/badge/releases-first%20release%20coming%20soon-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="下载" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=release&color=2a9468"></a>
   <a href="https://vonode.cc/zh-hans/install/"><img alt="安装指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -23,16 +23,13 @@ Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用
 
 本仓库**只存放发布文件和文档**，不包含源代码。节点软件是 VONODE LLC 的专有软件。
 
-> [!NOTE]
-> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases) 页面；在此之前，下面的下载命令无法使用。
-
 ## 目录
 
 - [功能](#功能)
 - [硬件和系统要求](#硬件和系统要求)
 - [下载与校验](#下载与校验)
 - [用 systemd 安装包安装（推荐）](#用-systemd-安装包安装推荐)
-- [用 Docker Compose 安装（即将推出）](#用-docker-compose-安装即将推出)
+- [用 Docker Compose 安装](#用-docker-compose-安装)
 - [配对 App](#配对-app)
 - [免费方案或订阅](#免费方案或订阅)
 - [升级](#升级)
@@ -64,7 +61,7 @@ Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用
 
 | 项目 | 要求 |
 |---|---|
-| **主机** | 带 systemd 的 64 位 x86（amd64）Linux：Debian 12、Ubuntu 22.04 及以上，或 Fedora。需要 root 权限和完整的 `iproute2` 软件包。Intel N100 迷你主机、二手瘦客户机或 NUC 都合适；节点本身只需 2 GB 内存和 4 GB 磁盘。已验证平台：Ubuntu 22.04，amd64。 |
+| **主机** | 64 位 x86（amd64）Linux：Debian 12、Ubuntu 22.04 及以上，或 Fedora；安装包方式需要 systemd，Docker 方式需要 Docker Engine 和 Compose v2。需要 root 权限；systemd 安装包还需要完整的 `iproute2` 软件包（Docker 镜像自带）。Intel N100 迷你主机、二手瘦客户机或 NUC 都合适；节点本身只需 2 GB 内存和 4 GB 磁盘。已验证平台：Ubuntu 22.04，amd64。 |
 | **蜂窝模组** | 带 USB 串口（AT）和 QMI 接口、基于高通平台的 Quectel 模组。已实测：DJI Cellular 模块（内置 Quectel EG25-G，需按硬件页面的说明一次性切换 USB 标识）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在代码中支持，但尚未实测。每个节点最多连接五个模组。 |
 | **天线和供电** | 主天线和分集天线都要接上。连接多个模组时，请使用带供电的 USB 集线器。 |
 | **SIM 卡与网络** | 已关闭 PIN 码的 SIM 卡；如需 eSIM，请使用可插拔 eUICC 卡。运营商已在套餐中开通 Wi-Fi 通话。手机能访问到 TCP 2222 端口：在路由器上做端口转发，或使用 WireGuard、Tailscale 等 VPN。 |
@@ -78,9 +75,6 @@ Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大�
 
 ## 下载与校验
 
-> [!NOTE]
-> **首个正式版本尚未发布。** 发布后会出现在 [Releases](https://github.com/vonode/vonode-releases/releases) 页面；在此之前，下面的下载命令无法使用。
-
 每个版本都发布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 页面。
 把下面的 `VERSION` 设为该页面上显示的版本标签（文件名使用同一标签）。
 
@@ -88,6 +82,7 @@ Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大�
 |---|---|
 | `vonode_<version>_linux_amd64_commercial.tar.gz` | 安装包：节点程序、`install.sh`、systemd 单元、`docker/` 部署文件、指南和许可证 |
 | `vonode_<version>_linux_amd64_commercial.tar.gz.sha256` | 安装包的 SHA-256 校验值 |
+| `docker-compose.yml` 和 `docker-compose.yml.sha256` | 本版本的 Docker Compose 文件（按 digest 固定镜像）及其校验值 |
 | `vonode_<version>_linux_amd64_commercial` 和 `.sig` | 单文件形式的节点程序及其发布签名，供 App 内软件更新使用 |
 | `latest-commercial.json` | 带签名的更新清单，节点据此在 App 中提供更新 |
 | `vonode_<version>_linux_amd64_commercial.sources.tar` | GPL 和 LGPL 组件的对应源代码 |
@@ -197,10 +192,10 @@ sudo ufw allow 2222/tcp
 ```
 
 用手机访问节点时使用的地址显示配对二维码：做了端口转发时填 DDNS 域名或公网 IP，否则填主机的 VPN 或
-局域网地址。如果转发的是其他端口，请加上 `-port <端口>`。
+局域网地址。如果路由器转发的是其他外部端口，请把 `-port` 后面换成那个端口。
 
 ```sh
-sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.example.com
+sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.example.com -port 2222
 ```
 
 终端会以字符块图形显示二维码。它 5 分钟内有效，只能使用一次；需要新的二维码时再次运行这条命令。
@@ -213,85 +208,110 @@ sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.exampl
 | 查看状态 | `systemctl status vonode vonode-gateway` |
 | 查看日志 | `journalctl -u vonode -f` |
 | 重启 | `sudo systemctl restart vonode`（最多需要两分钟：节点会先注销 Wi-Fi 通话并关闭隧道） |
-| 新的配对码 | `sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host <地址>` |
+| 新的配对码 | `sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host <地址> -port 2222` |
 | 忘记管理员密码 | `sudo systemctl stop vonode`，然后 `sudo /opt/vonode/vonode reset-password -c /opt/vonode/config/config.yaml`，再 `sudo systemctl start vonode`。所有手机都会退出登录，需要重新配对。 |
 
-## 用 Docker Compose 安装（即将推出）
+## 用 Docker Compose 安装
 
-> [!IMPORTANT]
-> **商用 Docker 镜像尚未发布。** 发布之前，请使用 [systemd 安装包](#用-systemd-安装包安装推荐)，
-> 这是本版本支持的安装方式。下面的步骤说明 Docker 方式将来的用法。两种方式的配对和方案用法完全相同。
+Docker Compose 方式用 Docker Hub 上的镜像 [`vonode/vonode`](https://hub.docker.com/r/vonode/vonode)
+运行两个容器，节点功能与 systemd 方式相同：`vonode`（核心，负责驱动模组）和 `vonode-gateway`（无特权的
+SSH 服务，App 通过 TCP 2222 连接它）。配对、方案和 App 的用法与 systemd 安装包完全一样。镜像标签与版本对应
+（`v1.3.0` 对应 `1.3.0`，另有 `latest`），适用于 64 位 x86（amd64）主机。每个版本还会发布一个按 digest
+固定镜像的 `docker-compose.yml`。
 
-Docker 方式用同一个镜像 `vonode/vonode` 运行两个容器，节点功能与 systemd 方式相同：`vonode`（核心，
-使用主机网络，负责与模组通信）和 `vonode-gateway`（无特权的 SSH 服务，App 通过 TCP 2222 连接它）。
-部署文件在安装包的 `docker/` 目录中。
+一台主机只用一种安装方式：不要在已安装 systemd 安装包的主机上再运行 Docker 方式。
 
 ### 1. 准备主机
 
-Linux、模组和 SIM 卡的要求与上文相同。停用 ModemManager，并安装带 Compose 插件的 Docker Engine；
-Docker 官方的便捷脚本适用于 Debian、Ubuntu 和 Fedora。最后一条命令必须输出 Compose v2 的版本号。
+Linux、模组和 SIM 卡的要求与上文相同。macOS 或 Windows 上的 Docker Desktop 无法访问 USB 模组，请在 Linux
+上使用 Docker Engine。停用 ModemManager，确认 Linux 能识别模组，然后安装带 Compose 插件的 Docker Engine。
+Docker 官方的便捷脚本适用于 Debian、Ubuntu 和 Fedora；最后一条命令必须输出 Compose v2 的版本号。
 
 ```sh
 sudo systemctl disable --now ModemManager
+lsusb | grep -i -E 'quectel|2c7c|qualcomm|05c6'
+ls /dev/ttyUSB* /dev/cdc-wdm*
 curl -fsSL https://get.docker.com | sh
 sudo systemctl enable --now docker
 docker compose version
 ```
 
-### 2. 下载并校验安装包
+模组的串口和 QMI 接口由主机内核的 `option` 和 `qmi_wwan` 驱动提供，插入模组时会自动加载。如果 `lsusb`
+能看到模组但没有 `/dev/ttyUSB*`，运行 `sudo modprobe -a option qmi_wwan`，然后重新插拔模组。
 
-按 [下载与校验](#下载与校验) 下载、校验并解压安装包，然后进入它的 `docker/` 目录：
+**设备访问。** `vonode` 容器使用主机网络、以特权模式运行，并能看到主机的整个 `/dev`：它要驱动 USB 串口和
+QMI 接口、为 Wi-Fi 通话创建 TUN/XFRM 接口，并用 ALSA 处理通话音频。绑定整个 `/dev` 后，之后插入的模组、
+或复位后以其他 `/dev/ttyUSB*` 编号重新出现的模组，无需重启即可识别。`vonode-gateway` 容器以 UID 10001
+运行，文件系统只读、不带任何 capability，只对外发布 TCP 2222。
+
+### 2. 下载 Compose 文件
 
 ```sh
-cd vonode_${VERSION}_linux_amd64_commercial/docker
+mkdir -p ~/vonode && cd ~/vonode
+VERSION=vX.Y.Z        # 换成版本标签
+BASE=https://github.com/vonode/vonode-releases/releases/download/$VERSION
+curl -fLO $BASE/docker-compose.yml
+curl -fLO $BASE/docker-compose.yml.sha256
+sha256sum -c docker-compose.yml.sha256
 ```
 
-### 3. 运行安装脚本
+可选设置写在同一目录的 `.env` 文件里，例如用 `TZ=Asia/Hong_Kong` 设置节点时区（默认 UTC），或用
+`VONODE_SSH_PORT=2022` 把 SSH 服务发布到主机的其他端口。
+
+### 3. 启动节点
 
 ```sh
-sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
+sudo docker compose up -d
+sudo docker compose ps
 ```
 
-- `--host` 是手机访问节点时使用的域名或 IP 地址。不填时脚本会建议使用主机的局域网地址，在同一个 Wi-Fi
-  下首次配对时这样就可以。
-- `--image` 填发布说明中经过核验的 `vonode/vonode@sha256:<digest>`（仅在该版本提供镜像时）。如果安装包
-  已经带有经过核验的镜像，可以省略。可变的镜像标签会被拒绝，除非加上 `--allow-tag`。
+Docker 会拉取固定的镜像并启动两个容器；大约半分钟后两个容器都显示 `healthy`。节点把配置、数据库和日志
+保存在 `docker-compose.yml` 旁边的 `config/`、`data/` 和 `logs/` 中。首次启动时会生成随机管理员密码，
+明文保存在 `config/initial-admin-password`，只有 root 可读。
 
-脚本会检查主机（Linux、amd64、root、Docker、Compose、ModemManager），列出找到的模组及其设备节点，在
-脚本旁边创建 `config/`、`data/` 和 `logs/`，写入 `.env` 和 `docker-compose.override.yml`，拉取镜像，启动
-两个容器并等待两者都报告健康（首次启动约半分钟）。随后显示初始管理员密码的位置
-（`config/initial-admin-password`，只有 root 可读）和配对二维码。请像 systemd 方式一样在主机防火墙上放行
-TCP 2222。用 `--port <n>` 改用其他 SSH 端口；路由器转发的外部端口不同时，用 `--public-port <n>`。
+### 4. 开放端口并显示配对二维码
 
-再次运行 `sudo ./setup.sh` 会保留配置和数据。`./setup.sh --help` 会说明每个选项。
+在主机防火墙上放行 TCP 2222；如果手机要从外部网络连接，请在路由器上转发该端口（或使用 VPN）。然后用手机
+访问节点时使用的地址和端口显示配对二维码：
 
-### 设备映射
+```sh
+sudo ufw allow 2222/tcp
+sudo docker compose exec vonode /app/vonode pair -c /app/config/config.yaml -host node.example.com -port 2222
+```
 
-默认情况下，`setup.sh` 把整个 `/dev` 绑定到核心容器中，所以之后插上的模组、或复位后以不同
-`/dev/ttyUSB*` 编号重新枚举的模组，无需重新运行脚本就会出现。核心容器以特权模式运行，因为它需要
-TUN/XFRM、USB 和 ALSA。
-
-如果只想把当前存在的模组设备节点交给核心容器，请用 `sudo ./setup.sh --devices`；这种模式下，插拔、移动
-或更换模组后要重新运行 `setup.sh`。`--no-devices` 不映射任何设备。所选模式会记在 `.env` 中。
+二维码 5 分钟内有效，只能使用一次。接下来请看 [配对 App](#配对-app)。
 
 ### Docker 方式的日常运维
 
-以下命令在安装包的 `docker/` 目录下运行。
+以下命令在 `docker-compose.yml` 所在目录下运行。
 
 | 操作 | 命令 |
 |---|---|
 | 查看状态（两个服务都应为 healthy） | `sudo docker compose ps` |
 | 查看日志 | `sudo docker compose logs -f vonode` |
 | 新的配对码 | `sudo docker compose exec vonode /app/vonode pair -c /app/config/config.yaml -host <地址> -port 2222` |
-| 新增或移动了模组 | `sudo ./setup.sh` |
 | 重启（最多两分钟） | `sudo docker compose restart vonode` |
-| 停止并保留数据 | `sudo ./setup.sh --uninstall` |
-| 全部删除 | `sudo ./setup.sh --uninstall --purge` |
+| 停止并保留数据 | `sudo docker compose down` |
+| 重新启动 | `sudo docker compose up -d` |
 | 忘记管理员密码 | `sudo docker compose stop vonode`、`sudo docker compose run --rm --no-deps vonode reset-password -c /app/config/config.yaml`、`sudo docker compose start vonode` |
 
 > [!WARNING]
-> 不要运行 `docker compose down -v`。`vonode_gateway-private` 卷保存着已配对手机所固定的 SSH 主机密钥。
-> `setup.sh --uninstall` 会保留它，只有 `--purge` 才会删除。
+> 除非要删除节点，否则不要运行 `docker compose down -v`。`vonode_gateway-private` 卷保存着已配对手机所固定的
+> SSH 主机密钥；它丢失后，所有手机都要重新配对。
+
+### 另一种方式：安装脚本
+
+安装包里还有一个 `docker/` 目录，其中的 `setup.sh` 会检查主机、列出找到的模组、写入 `.env` 和设备覆盖文件、
+启动两个容器并显示配对二维码。按 [下载与校验](#下载与校验) 下载并解压安装包，然后运行：
+
+```sh
+cd vonode_${VERSION}_linux_amd64_commercial/docker
+sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
+```
+
+发布说明里给出了 `vonode/vonode@sha256:<digest>` 形式的镜像。`--devices` 只映射当前存在的模组设备节点，
+而不是整个 `/dev`；`./setup.sh --help` 会说明每个选项。使用这种模式时，添加或移动模组后请重新运行
+`sudo ./setup.sh`；`sudo ./setup.sh --uninstall` 会停止节点并保留数据。
 
 ## 配对 App
 
@@ -315,11 +335,13 @@ App 和节点必须能通过二维码里的地址互相访问。如果 App 提�
 
 ## 升级
 
-- **在 App 中：** 节点会在“更多 > 软件更新”中提供带签名的更新。节点在安装前会验证更新的签名。
+- **在 App 中：** 用 systemd 安装包安装的节点会在“更多 > 软件更新”中提供带签名的更新。节点在安装前会验证更新的签名。
 - **systemd 安装包：** 下载并校验新的安装包，解压后在其顶层目录运行 `sudo ./install.sh`。配置、数据库和
   SSH 主机密钥都会保留。
-- **Docker：** 把新的 `vonode/vonode@sha256:<digest>` 写入 `.env`（`VONODE_IMAGE=...`）或用 `--image`
-  传入，然后再次运行 `sudo ./setup.sh`。两个容器始终使用同一个镜像。
+- **Docker Compose：** 把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下载到同一目录并校验，
+  然后运行 `sudo docker compose pull` 和 `sudo docker compose up -d`。配置、数据库和 SSH 主机密钥都会保留，
+  两个容器始终使用同一个镜像。App 内更新不会替换容器里的程序，请改为更新镜像。使用安装脚本时，运行
+  `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` 并传入新的 digest。
 
 升级前请先备份：App 中的“更多 > 备份记录”。备份包含短信、通话记录和节点的订阅绑定，请妥善保管。迁移到
 新硬件时，在旧节点上创建并下载备份，安装并配对新节点，再导入并恢复备份。不要让旧节点继续用同一份数据运行。
@@ -335,14 +357,15 @@ sudo systemctl daemon-reload
 sudo rm -rf /opt/vonode /var/lib/vonode-gateway
 ```
 
-Docker：`sudo ./setup.sh --uninstall` 停止节点并保留全部数据；加上 `--purge` 会删除容器、卷以及
-`config/`、`data/`、`logs/`。
+Docker Compose（在 `docker-compose.yml` 所在目录）：`sudo docker compose down` 停止节点并保留全部数据。要删除
+节点及其数据，运行 `sudo docker compose down -v`，再运行 `sudo rm -rf config data logs`。使用安装脚本时，
+`sudo ./setup.sh --uninstall` 保留数据，`--uninstall --purge` 会删除数据。
 
 ## 故障排查
 
 | 问题 | 处理方法 |
 |---|---|
-| ModemManager 正在运行 | `sudo systemctl disable --now ModemManager`，然后 `sudo systemctl restart vonode`（Docker 方式改为重新运行 `sudo ./setup.sh`）。 |
+| ModemManager 正在运行 | `sudo systemctl disable --now ModemManager`，然后 `sudo systemctl restart vonode`（Docker 方式改为运行 `sudo docker compose restart vonode`）。 |
 | 检测不到模组 | 如果 `lsusb` 里没有 Quectel（`2c7c`）设备，请换一根线或换一个接口，使用带供电的集线器，并用 `sudo dmesg \| tail -n 30` 查看 USB 供电错误。如果 `lsusb` 能看到模组但没有 `/dev/ttyUSB*`，运行 `sudo modprobe -a option qmi_wwan`，然后重新插拔模组。 |
 | App 连不上节点 | 在你的网络之外的设备上运行 `nc -vz node.example.com 2222`。没有响应说明路由器转发或防火墙设置有误，或者宽带运营商使用了运营商级 NAT；这时请使用 VPN，并用主机的 VPN 地址配对。 |
 | 配对码已过期或已被使用 | 配对码 5 分钟内有效，只能使用一次。再次运行 `pair` 命令即可。 |
