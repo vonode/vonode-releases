@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://vonode.cc/zh-hant/changelog/"><img alt="首個版本 v1.4.0 即將推出" src="https://img.shields.io/badge/first%20release-v1.4.0%20coming%20soon-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="最新版本" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=latest%20release&color=2a9468"></a>
   <a href="https://vonode.cc/zh-hant/install/"><img alt="安裝指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -23,10 +23,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 
 本儲存庫**只存放發行檔案和文件**，不包含原始碼。節點軟體是 VONODE LLC 的專有軟體。
 
-> [!NOTE]
-> **即將推出。** 節點軟體目前還不能下載。首個公開版本 **v1.4.0** 將與 App Store 上的 Vonode App 1.4.0
-> 一同在這裡發布；在此之前，沒有已發布的 App 能與節點軟體搭配使用。v1.3.0 曾短暫發布後撤回，不再提供支援。
-> 以下說明自 v1.4.0 起適用。
+v1.3.0 曾短暫發布後撤回，不再提供支援，請安裝 v1.4.0 或更新版本。
 
 ## 目錄
 
@@ -36,7 +33,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 - [用 systemd 安裝套件安裝（建議）](#用-systemd-安裝套件安裝建議)
 - [用 Docker Compose 安裝](#用-docker-compose-安裝)
 - [配對 App](#配對-app)
-- [免費方案或訂閱](#免費方案或訂閱)
+- [免費方案、訂閱或終身版](#免費方案訂閱或終身版)
 - [升級](#升級)
 - [解除安裝](#解除安裝)
 - [疑難排解](#疑難排解)
@@ -70,7 +67,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 | **行動網路模組** | 具備 USB 序列埠（AT）和 QMI 介面、採用高通平台的 Quectel 模組。已實測：DJI Cellular 模組（內建 Quectel EG25-G，需依硬體頁面的說明一次性切換 USB 識別碼）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在程式碼中支援，但尚未實測。每個節點最多連接五個模組。 |
 | **天線和供電** | 主天線和分集天線都要接上。連接多個模組時，請使用有外接電源的 USB 集線器。 |
 | **SIM 卡與網路** | 已關閉 PIN 碼的 SIM 卡；如需 eSIM，請使用可插拔 eUICC 卡。電信業者已在資費方案中開通 Wi-Fi 通話。手機能連到 TCP 2222 連接埠：在路由器上設定連接埠轉送，或使用 WireGuard、Tailscale 等 VPN。 |
-| **App** | iPhone 和 iPad 上的 Vonode 1.4.0 或更新版本（即將推出），需要 iOS 或 iPadOS 17 以上版本。App Store 免費下載。 |
+| **App** | iPhone 和 iPad 上的 Vonode 1.4.0 或更新版本，需要 iOS 或 iPadOS 17 以上版本。App Store 免費下載。 |
 
 暫不支援：Raspberry Pi 等 ARM（arm64）主機（預計在之後的版本提供）、OpenWrt 路由器、macOS 或 Windows
 上的 Docker Desktop、沒有 USB 直通的虛擬機器，以及只提供網路卡功能的 USB 網卡（HiLink、僅 RNDIS 或僅
@@ -329,13 +326,13 @@ sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
 App 和節點必須能透過 QR Code 裡的位址互相連線。如果 App 顯示連線錯誤，請先檢查連接埠轉送或 VPN，再產生
 新的配對碼。之後要配對另一支手機，請在 App 中使用「換綁到新手機」，它會顯示一次性 QR Code。
 
-## 免費方案或訂閱
+## 免費方案、訂閱或終身版
 
-未訂閱時，節點以**免費方案**執行：開啟「號碼」標籤頁，選擇一個你想查看簡訊的號碼。選定後在這個節點上不能
+未訂閱也未購買終身版時，節點以**免費方案**執行：開啟「號碼」標籤頁，選擇一個你想查看簡訊的號碼。選定後在這個節點上不能
 更換，還原備份也會保留它。之後「簡訊」標籤頁會顯示這個號碼收到的簡訊。
 
-其他功能（電話、Wi-Fi 通話、傳簡訊、通知、eSIM 設定檔、代理、自動任務、更多號碼）都需要在 App 內購買
-訂閱：開啟「更多 › 訂閱」。一份訂閱解鎖一個節點；你可以在 App 中把它移轉到另一個節點，30 天內最多 3 次，在新硬體上
+其他功能（電話、Wi-Fi 通話、傳簡訊、通知、eSIM 設定檔、代理、自動任務、更多號碼）需要這個節點的 Vonode 訂閱或 Vonode
+終身版（在 App 內購買）：開啟「更多 › 訂閱」。每份訂閱或終身版解鎖一個節點；你可以在 App 中把它移轉到另一個節點，30 天內最多 3 次，在新硬體上
 重裝節點軟體或還原備份也算一次移轉。節點幾秒內就會解鎖並以完整模式重新啟動；之後用
 「新增模組」加入模組，並為每張 SIM 卡開啟 Wi-Fi 通話。
 

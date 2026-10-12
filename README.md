@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://vonode.cc/changelog/"><img alt="First release: v1.4.0, coming soon" src="https://img.shields.io/badge/first%20release-v1.4.0%20coming%20soon-2a9468?style=flat-square"></a>
+  <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=latest%20release&color=2a9468"></a>
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="Platform" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -25,11 +25,7 @@ on Wi-Fi calling, all through hardware you run yourself.
 This repository holds **release files and documentation only**. It contains no source code.
 The node software is proprietary software of VONODE LLC.
 
-> [!NOTE]
-> **Coming soon.** The node software is not available for download yet. The first public release,
-> **v1.4.0**, will be published here together with the Vonode app 1.4.0 on the App Store; no released
-> app works with the node software before that. Version v1.3.0 was briefly published and then
-> withdrawn; it is not supported. The instructions below apply from v1.4.0.
+Version v1.3.0 was briefly published and then withdrawn; it is not supported. Install v1.4.0 or later.
 
 ## Contents
 
@@ -39,7 +35,7 @@ The node software is proprietary software of VONODE LLC.
 - [Install with the systemd package (recommended)](#install-with-the-systemd-package-recommended)
 - [Install with Docker Compose](#install-with-docker-compose)
 - [Pair the app](#pair-the-app)
-- [Free plan or subscription](#free-plan-or-subscription)
+- [Free plan, subscription or Lifetime](#free-plan-subscription-or-lifetime)
 - [Upgrade](#upgrade)
 - [Uninstall](#uninstall)
 - [Troubleshooting](#troubleshooting)
@@ -76,7 +72,7 @@ Check the full list on the **[hardware page](https://vonode.cc/hardware/)** befo
 | **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
 | **Antennas and power** | Attach both antennas (main and diversity). Use a powered USB hub when you connect more than one module. |
 | **SIM and network** | A SIM with its PIN removed, or a removable eUICC card for eSIM. Wi-Fi calling enabled on the plan by your carrier. TCP port 2222 reachable from the phone, through a port forward or a VPN such as WireGuard or Tailscale. |
-| **App** | Vonode for iPhone and iPad, version 1.4.0 or later (coming soon), iOS and iPadOS 17 or later. Free download on the App Store. The Vonode app is available on the App Store in all countries and regions except mainland China. |
+| **App** | Vonode for iPhone and iPad, version 1.4.0 or later, iOS and iPadOS 17 or later. Free download on the App Store. The Vonode app is available on the App Store in all countries and regions except mainland China. |
 
 Not supported yet: ARM (arm64) hosts such as the Raspberry Pi (planned for a later release),
 OpenWrt routers, Docker Desktop on macOS or Windows, virtual machines without USB pass-through,
@@ -358,15 +354,15 @@ The app and the node must reach each other at the address in the code. If the ap
 connection error, check the port forward or VPN first, then create a fresh code. To pair a second
 phone later, use **Move to a new phone** in the app; it shows a one-time QR code.
 
-## Free plan or subscription
+## Free plan, subscription or Lifetime
 
-Without a subscription the node runs the **free plan**: open the **Numbers** tab and choose the
+Without a subscription or Lifetime the node runs the **free plan**: open the **Numbers** tab and choose the
 one number whose SMS you want to see. The choice cannot be changed later; a backup restore
 keeps it. The **Messages** tab then shows the SMS that number receives.
 
 Every other feature (calls, Wi-Fi calling, sending SMS, notifications, eSIM profiles, proxies,
-automations, more numbers) needs a subscription, bought in the app: open **More › Subscription**.
-One subscription unlocks one node. You can move it to another node in the app up to 3 times in 30
+automations, more numbers) needs a Vonode subscription or Vonode Lifetime for this node, bought in the
+app: open **More › Subscription**. Each subscription or Lifetime purchase unlocks one node. You can move it to another node in the app up to 3 times in 30
 days; reinstalling the node software on new hardware or restoring a backup there also counts as a move. The node unlocks within seconds and restarts
 into full mode; then add your modules with **Add Modem** and switch Wi-Fi calling on per SIM.
 
