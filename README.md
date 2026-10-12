@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="Download" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=release&color=2a9468"></a>
+  <a href="https://vonode.cc/changelog/"><img alt="First release: v1.4.0, coming soon" src="https://img.shields.io/badge/first%20release-v1.4.0%20coming%20soon-2a9468?style=flat-square"></a>
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="Platform" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -24,6 +24,12 @@ on Wi-Fi calling, all through hardware you run yourself.
 
 This repository holds **release files and documentation only**. It contains no source code.
 The node software is proprietary software of VONODE LLC.
+
+> [!NOTE]
+> **Coming soon.** The node software is not available for download yet. The first public release,
+> **v1.4.0**, will be published here together with the Vonode app 1.4.0 on the App Store; no released
+> app works with the node software before that. Version v1.3.0 was withdrawn before general
+> availability. The instructions below apply from v1.4.0.
 
 ## Contents
 
@@ -70,9 +76,9 @@ Check the full list on the **[hardware page](https://vonode.cc/hardware/)** befo
 | **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
 | **Antennas and power** | Attach both antennas (main and diversity). Use a powered USB hub when you connect more than one module. |
 | **SIM and network** | A SIM with its PIN removed, or a removable eUICC card for eSIM. Wi-Fi calling enabled on the plan by your carrier. TCP port 2222 reachable from the phone, through a port forward or a VPN such as WireGuard or Tailscale. |
-| **App** | Vonode for iPhone and iPad, iOS and iPadOS 17 or later. Free download on the App Store. |
+| **App** | Vonode for iPhone and iPad, version 1.4.0 or later (coming soon), iOS and iPadOS 17 or later. Free download on the App Store. |
 
-Not supported in this release: ARM (arm64) hosts such as the Raspberry Pi (planned for 1.3.1),
+Not supported yet: ARM (arm64) hosts such as the Raspberry Pi (planned for a later release),
 OpenWrt routers, Docker Desktop on macOS or Windows, virtual machines without USB pass-through,
 and USB dongles that only present a network card (HiLink, RNDIS-only or ECM-only firmware).
 Calls over the cellular network have not been confirmed on any module yet; calls work over
@@ -80,7 +86,7 @@ Wi-Fi calling.
 
 ## Download and verify
 
-Every release is published on the **[latest release](https://github.com/vonode/vonode-releases/releases/latest)**
+From v1.4.0, every release is published on the **[Releases](https://github.com/vonode/vonode-releases/releases)**
 page. Set `VERSION` below to the release tag shown on that page (file names use the same tag).
 
 | File | What it is |
@@ -228,10 +234,10 @@ run the command again for a new one. Continue with [Pair the app](#pair-the-app)
 ## Install with Docker Compose
 
 Docker Compose runs the same node as two containers from the image
-[`vonode/vonode`](https://hub.docker.com/r/vonode/vonode) on Docker Hub: `vonode`, the core, which
+`vonode/vonode` on Docker Hub (published from v1.4.0): `vonode`, the core, which
 talks to the modules, and `vonode-gateway`, the unprivileged SSH service the app connects to on
 TCP 2222. Pairing, plans and the app work exactly as with the systemd package. Image tags follow
-the release (`1.3.0` for `v1.3.0`, plus `latest`); images are for 64-bit x86 (amd64) hosts. Each
+the release (`1.4.0` for `v1.4.0`, plus `latest`); images are for 64-bit x86 (amd64) hosts. Each
 release also publishes a `docker-compose.yml` that pins its image by digest.
 
 Use one install method per host: do not run the Docker setup next to the systemd package.

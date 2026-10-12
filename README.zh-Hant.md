@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vonode/vonode-releases/releases"><img alt="下載" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=release&color=2a9468"></a>
+  <a href="https://vonode.cc/zh-hant/changelog/"><img alt="首個版本 v1.4.0 即將推出" src="https://img.shields.io/badge/first%20release-v1.4.0%20coming%20soon-2a9468?style=flat-square"></a>
   <a href="https://vonode.cc/zh-hant/install/"><img alt="安裝指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
@@ -22,6 +22,11 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 收發簡訊、撥打和接聽電話、切換 eSIM 設定檔、開啟 Wi-Fi 通話，全部透過你自己運作的硬體完成。
 
 本儲存庫**只存放發行檔案和文件**，不包含原始碼。節點軟體是 VONODE LLC 的專有軟體。
+
+> [!NOTE]
+> **即將推出。** 節點軟體目前還不能下載。首個公開版本 **v1.4.0** 將與 App Store 上的 Vonode App 1.4.0
+> 一同在這裡發布；在此之前，沒有已發布的 App 能與節點軟體搭配使用。v1.3.0 版本在正式提供前已撤回。
+> 以下說明自 v1.4.0 起適用。
 
 ## 目錄
 
@@ -65,9 +70,9 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 | **行動網路模組** | 具備 USB 序列埠（AT）和 QMI 介面、採用高通平台的 Quectel 模組。已實測：DJI Cellular 模組（內建 Quectel EG25-G，需依硬體頁面的說明一次性切換 USB 識別碼）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在程式碼中支援，但尚未實測。每個節點最多連接五個模組。 |
 | **天線和供電** | 主天線和分集天線都要接上。連接多個模組時，請使用有外接電源的 USB 集線器。 |
 | **SIM 卡與網路** | 已關閉 PIN 碼的 SIM 卡；如需 eSIM，請使用可插拔 eUICC 卡。電信業者已在資費方案中開通 Wi-Fi 通話。手機能連到 TCP 2222 連接埠：在路由器上設定連接埠轉送，或使用 WireGuard、Tailscale 等 VPN。 |
-| **App** | iPhone 和 iPad 上的 Vonode，需要 iOS 或 iPadOS 17 以上版本。App Store 免費下載。 |
+| **App** | iPhone 和 iPad 上的 Vonode 1.4.0 或更新版本（即將推出），需要 iOS 或 iPadOS 17 以上版本。App Store 免費下載。 |
 
-本版本不支援：Raspberry Pi 等 ARM（arm64）主機（預計在 1.3.1 提供）、OpenWrt 路由器、macOS 或 Windows
+暫不支援：Raspberry Pi 等 ARM（arm64）主機（預計在之後的版本提供）、OpenWrt 路由器、macOS 或 Windows
 上的 Docker Desktop、沒有 USB 直通的虛擬機器，以及只提供網路卡功能的 USB 網卡（HiLink、僅 RNDIS 或僅
 ECM 韌體）。行動網路通話目前還沒有在任何模組上得到確認；通話可以透過 Wi-Fi 通話進行。
 
@@ -76,7 +81,7 @@ App Store 目前不提供。
 
 ## 下載與驗證
 
-每個版本都發布在 **[最新版本](https://github.com/vonode/vonode-releases/releases/latest)** 頁面。
+自 v1.4.0 起，每個版本都發布在 **[Releases](https://github.com/vonode/vonode-releases/releases)** 頁面。
 請把下面的 `VERSION` 設為該頁面上顯示的版本標籤（檔名使用同一標籤）。
 
 | 檔案 | 說明 |
@@ -214,10 +219,10 @@ sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.exampl
 
 ## 用 Docker Compose 安裝
 
-Docker Compose 方式以 Docker Hub 上的映像檔 [`vonode/vonode`](https://hub.docker.com/r/vonode/vonode)
+Docker Compose 方式以 Docker Hub 上的映像檔 `vonode/vonode`（自 v1.4.0 起發布）
 執行兩個容器，節點功能與 systemd 方式相同：`vonode`（核心，負責驅動模組）和 `vonode-gateway`（無特權的
 SSH 服務，App 透過 TCP 2222 連線到它）。配對、方案和 App 的用法與 systemd 安裝套件完全相同。映像檔標籤與
-版本對應（`v1.3.0` 對應 `1.3.0`，另有 `latest`），適用於 64 位元 x86（amd64）主機。每個版本也會發布一個以
+版本對應（`v1.4.0` 對應 `1.4.0`，另有 `latest`），適用於 64 位元 x86（amd64）主機。每個版本也會發布一個以
 digest 固定映像檔的 `docker-compose.yml`。
 
 一台主機只用一種安裝方式：不要在已安裝 systemd 安裝套件的主機上再執行 Docker 方式。
