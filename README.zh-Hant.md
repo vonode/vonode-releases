@@ -25,7 +25,7 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 
 > [!NOTE]
 > **即將推出。** 節點軟體目前還不能下載。首個公開版本 **v1.4.0** 將與 App Store 上的 Vonode App 1.4.0
-> 一同在這裡發布；在此之前，沒有已發布的 App 能與節點軟體搭配使用。v1.3.0 版本在正式提供前已撤回。
+> 一同在這裡發布；在此之前，沒有已發布的 App 能與節點軟體搭配使用。v1.3.0 曾短暫發布後撤回，不再提供支援。
 > 以下說明自 v1.4.0 起適用。
 
 ## 目錄
@@ -48,15 +48,15 @@ Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點
 | 功能 | 說明 |
 |---|---|
 | **簡訊** | 收發節點上所有號碼的簡訊。垃圾簡訊自動分類，回覆時預設使用收到這則對話的號碼。 |
-| **電話** | 透過你的節點撥打和接聽電話。來電透過 CallKit 在 iPhone 上響鈴，App 在背景執行時也一樣。 |
-| **Wi-Fi 通話** | 每張 SIM 卡都可以在行動網路和 Wi-Fi 通話（VoWiFi）之間切換。節點透過網際網路連線電信業者，需要你的資費方案支援。 |
-| **SIM 與 eSIM** | 在可插拔 eUICC 卡上下載、切換、重新命名和刪除 eSIM 設定檔。實體 SIM 卡插上即可使用。 |
+| **電話** | 透過你的節點以 Wi-Fi 通話撥打和接聽電話。來電透過 CallKit 在 iPhone 上響鈴，App 在背景執行時也一樣。 |
+| **Wi-Fi 通話** | 依 SIM 卡開啟 Wi-Fi 通話（VoWiFi），電話透過 Wi-Fi 通話進行。節點透過網際網路連線電信業者，需要你的資費方案支援。 |
+| **SIM 與 eSIM** | 在可插拔 eUICC 卡上切換 eSIM 設定檔；下載、重新命名和刪除在 App 中可用，但尚未在硬體上驗證。實體 SIM 卡插上即可使用。 |
 | **檢查網路** | 用淺白的文字檢查 SIM 卡、電信業者、行動資料、簡訊和通話服務；需要時，技術細節點一下就能看到。 |
 | **通知** | 透過 Apple 推播接收簡訊和來電提醒。可選的簡訊預覽由節點加密，只在你的手機上解密。 |
 | **還有更多** | 電信業者代碼（USSD）、自動任務、代理、備份與還原、換綁到新手機，都在同一個 App 裡。 |
 
 你和你的號碼之間沒有 Vonode 雲端服務。App 透過加密 SSH 直接連線你的節點，並固定節點的主機金鑰；
-簡訊、通話紀錄和設定都儲存在你運作的節點上。VONODE LLC 營運的中繼負責傳送 Apple 通知和確認訂閱，不儲存明文簡訊內容；詳見[隱私權政策](https://vonode.cc/zh-hant/privacy/)。
+簡訊、通話紀錄和設定都儲存在你運作的節點上。VONODE LLC 營運的中繼負責傳送 Apple 通知和確認訂閱，不儲存明文簡訊內容，只能看到通知的類型和時間這類中繼資料；詳見[隱私權政策](https://vonode.cc/zh-hant/privacy/)。
 
 節點沒有網頁介面：安裝好、和 App 配對，之後的一切都在 App 裡管理。
 
@@ -92,6 +92,7 @@ App Store 目前不提供。
 | `vonode_<version>_linux_amd64_commercial` 和 `.sig` | 單一檔案形式的節點程式及其發行簽章，供 App 內軟體更新使用 |
 | `latest-commercial.json` | 已簽章的更新清單，節點據此在 App 中提供更新 |
 | `vonode_<version>_linux_amd64_commercial.sources.tar` | GPL 和 LGPL 元件的對應原始碼 |
+| `vonode-<version>-docker-alpine-sources.tar` 及 `.sha256` | Docker 映像檔內 GPL、LGPL 和 MPL 套件的對應原始碼 |
 | `vonode_<version>_linux_amd64_commercial.spdx.json` | 軟體物料清單（SPDX SBOM） |
 | `vonode_<version>_linux_amd64_commercial.THIRD_PARTY_NOTICES.txt` | 第三方元件及其授權條款 |
 
@@ -334,14 +335,15 @@ App 和節點必須能透過 QR Code 裡的位址互相連線。如果 App 顯�
 更換，還原備份也會保留它。之後「簡訊」標籤頁會顯示這個號碼收到的簡訊。
 
 其他功能（電話、Wi-Fi 通話、傳簡訊、通知、eSIM 設定檔、代理、自動任務、更多號碼）都需要在 App 內購買
-訂閱：開啟「更多」，點「查看方案」。一份訂閱解鎖一個節點。節點幾秒內就會解鎖並以完整模式重新啟動；之後用
+訂閱：開啟「更多 › 訂閱」。一份訂閱解鎖一個節點；你可以在 App 中把它移轉到另一個節點，30 天內最多 3 次，在新硬體上
+重裝節點軟體或還原備份也算一次移轉。節點幾秒內就會解鎖並以完整模式重新啟動；之後用
 「新增模組」加入模組，並為每張 SIM 卡開啟 Wi-Fi 通話。
 
 硬體、SIM 資費方案、電信費用和主機代管不包含在內。
 
 ## 升級
 
-- **在 App 中：** 以 systemd 安裝套件安裝的節點會在「更多 > 軟體更新」中提供已簽章的更新。節點在安裝前會驗證更新的簽章。
+- **在 App 中：** 以 systemd 安裝套件安裝的節點會在「更多 › 軟體更新」中提供已簽章的更新。節點在安裝前會驗證更新的簽章。
 - **systemd 安裝套件：** 下載並驗證新的安裝套件，解壓縮後在最上層目錄執行 `sudo ./install.sh`。設定、
   資料庫和 SSH 主機金鑰都會保留。
 - **Docker Compose：** 把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下載到同一目錄並驗證，
@@ -349,8 +351,8 @@ App 和節點必須能透過 QR Code 裡的位址互相連線。如果 App 顯�
   兩個容器一律使用同一個映像檔。App 內更新不會替換容器裡的程式，請改為更新映像檔。使用安裝指令碼時，執行
   `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` 並傳入新的 digest。
 
-升級前請先備份：App 中的「更多 > 備份紀錄」。備份包含簡訊、通話紀錄和節點的訂閱綁定，請妥善保管。移轉到
-新硬體時，在舊節點上建立並下載備份，安裝並配對新節點，再匯入並還原備份。不要讓舊節點繼續用同一份資料執行。
+升級前請先備份：App 中的「更多 › 備份與還原」。備份包含簡訊、通話紀錄和節點的訂閱綁定，請妥善保管。移轉到
+新硬體時，在舊節點上建立並下載備份，安裝並配對新節點，再匯入並還原備份；這計入 30 天內 3 次移轉。不要讓舊節點繼續用同一份資料執行。
 
 ## 解除安裝
 
@@ -389,6 +391,9 @@ Docker Compose（在 `docker-compose.yml` 所在目錄）：`sudo docker compose
   副本，可寄信至 support@vonode.cc 索取，收費不超過媒體和郵寄成本；
 - SPDX SBOM 和 `THIRD_PARTY_NOTICES.txt` 列出全部第三方元件及其授權條款。
 
+Docker 映像檔也包含採用 GPL、LGPL 和 MPL 授權條款的 Alpine Linux 套件；它們的對應原始碼以發行資產
+`vonode-<version>-docker-alpine-sources.tar` 提供，條件相同（至少三年；實體副本可向 support@vonode.cc 索取）。
+
 ## 支援與法律資訊
 
 - 官網：<https://vonode.cc/zh-hant/>
@@ -400,5 +405,8 @@ Docker Compose（在 `docker-compose.yml` 所在目錄）：`sudo docker compose
 
 Vonode 不是緊急通訊服務。它仰賴你的硬體、電信業者、網路和 Apple 服務；請勿依賴它進行緊急求救或其他攸關
 生命安全的通訊。請只在你有權使用的 SIM 卡、號碼和網路上使用，並遵守電信業者的條款。
+
+DJI 是 SZ DJI Technology Co., Ltd. 的商標；Quectel 是 Quectel Wireless Solutions Co., Ltd. 的商標；Apple、iPhone、iPad
+和 App Store 是 Apple Inc. 的商標；Docker 是 Docker, Inc. 的商標。Vonode 與它們沒有關聯，也未獲其認可。
 
 © 2026 VONODE LLC。Vonode 是 VONODE LLC 的產品。

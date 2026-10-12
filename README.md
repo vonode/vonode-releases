@@ -28,8 +28,8 @@ The node software is proprietary software of VONODE LLC.
 > [!NOTE]
 > **Coming soon.** The node software is not available for download yet. The first public release,
 > **v1.4.0**, will be published here together with the Vonode app 1.4.0 on the App Store; no released
-> app works with the node software before that. Version v1.3.0 was withdrawn before general
-> availability. The instructions below apply from v1.4.0.
+> app works with the node software before that. Version v1.3.0 was briefly published and then
+> withdrawn; it is not supported. The instructions below apply from v1.4.0.
 
 ## Contents
 
@@ -51,9 +51,9 @@ The node software is proprietary software of VONODE LLC.
 | Feature | What it does |
 |---|---|
 | **Messages** | Read and send SMS for every number on the node. Junk is sorted automatically, and a reply goes out from the number that received the thread. |
-| **Calls** | Make and answer calls through your node. Incoming calls ring on your iPhone through CallKit, even when the app is in the background. |
-| **Wi-Fi Calling** | Switch each SIM between cellular and Wi-Fi calling (VoWiFi). The node reaches your carrier over the internet; your plan must support it. |
-| **SIM and eSIM** | Download, switch, rename and delete eSIM profiles on a removable eUICC card. Physical SIMs work as they are. |
+| **Calls** | Make and answer calls through your node over Wi-Fi calling. Incoming calls ring on your iPhone through CallKit, even when the app is in the background. |
+| **Wi-Fi Calling** | Turn Wi-Fi calling (VoWiFi) on per SIM; calls run over Wi-Fi calling. The node reaches your carrier over the internet; your plan must support it. |
+| **SIM and eSIM** | Switch eSIM profiles on a removable eUICC card; downloading, renaming and deleting are in the app but not yet verified on hardware. Physical SIMs work as they are. |
 | **Check network** | A plain-language check of SIM, carrier, mobile data, SMS and calling service, with technical details one tap away. |
 | **Notifications** | SMS and call alerts through Apple push. Optional message previews are encrypted by your node and decrypted only on your phone. |
 | **And the rest** | Carrier codes (USSD), automations, proxies, backups and moving to a new phone, all in the same app. |
@@ -61,7 +61,7 @@ The node software is proprietary software of VONODE LLC.
 There is no Vonode cloud between you and your numbers. The app talks to your node directly over
 encrypted SSH and pins the node's host key. Messages, call history and settings stay on the node you operate.
 A small relay run by VONODE LLC delivers Apple notifications and confirms subscriptions; it does not
-store plaintext message content. Details are in the [Privacy Policy](https://vonode.cc/privacy/).
+store plaintext message content, and it sees only notification metadata such as the type and time of a notification. Details are in the [Privacy Policy](https://vonode.cc/privacy/).
 
 The node has no web interface: install it once, pair it with the app, and manage everything from
 the app.
@@ -76,7 +76,7 @@ Check the full list on the **[hardware page](https://vonode.cc/hardware/)** befo
 | **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
 | **Antennas and power** | Attach both antennas (main and diversity). Use a powered USB hub when you connect more than one module. |
 | **SIM and network** | A SIM with its PIN removed, or a removable eUICC card for eSIM. Wi-Fi calling enabled on the plan by your carrier. TCP port 2222 reachable from the phone, through a port forward or a VPN such as WireGuard or Tailscale. |
-| **App** | Vonode for iPhone and iPad, version 1.4.0 or later (coming soon), iOS and iPadOS 17 or later. Free download on the App Store. |
+| **App** | Vonode for iPhone and iPad, version 1.4.0 or later (coming soon), iOS and iPadOS 17 or later. Free download on the App Store. The Vonode app is available on the App Store in all countries and regions except mainland China. |
 
 Not supported yet: ARM (arm64) hosts such as the Raspberry Pi (planned for a later release),
 OpenWrt routers, Docker Desktop on macOS or Windows, virtual machines without USB pass-through,
@@ -97,6 +97,7 @@ page. Set `VERSION` below to the release tag shown on that page (file names use 
 | `vonode_<version>_linux_amd64_commercial` and `.sig` | The node program as a single file and its release signature, used by in-app software updates |
 | `latest-commercial.json` | The signed update manifest that nodes read to offer updates in the app |
 | `vonode_<version>_linux_amd64_commercial.sources.tar` | Corresponding source of the GPL and LGPL components |
+| `vonode-<version>-docker-alpine-sources.tar` and `.sha256` | Corresponding source of the GPL, LGPL and MPL packages inside the Docker image |
 | `vonode_<version>_linux_amd64_commercial.spdx.json` | Software bill of materials (SPDX) |
 | `vonode_<version>_linux_amd64_commercial.THIRD_PARTY_NOTICES.txt` | Third-party components and their licenses |
 
@@ -360,19 +361,20 @@ phone later, use **Move to a new phone** in the app; it shows a one-time QR code
 ## Free plan or subscription
 
 Without a subscription the node runs the **free plan**: open the **Numbers** tab and choose the
-one number whose SMS you want to see. The choice is permanent for this node; a backup restore
+one number whose SMS you want to see. The choice cannot be changed later; a backup restore
 keeps it. The **Messages** tab then shows the SMS that number receives.
 
 Every other feature (calls, Wi-Fi calling, sending SMS, notifications, eSIM profiles, proxies,
-automations, more numbers) needs a subscription, bought in the app: open **More**, then
-**See Plans**. One subscription unlocks one node. The node unlocks within seconds and restarts
+automations, more numbers) needs a subscription, bought in the app: open **More › Subscription**.
+One subscription unlocks one node. You can move it to another node in the app up to 3 times in 30
+days; reinstalling the node software on new hardware or restoring a backup there also counts as a move. The node unlocks within seconds and restarts
 into full mode; then add your modules with **Add Modem** and switch Wi-Fi calling on per SIM.
 
 Hardware, SIM plans, carrier charges and hosting are not included.
 
 ## Upgrade
 
-- **In the app:** nodes installed with the systemd package offer signed updates under **More > Software update**. The node checks the
+- **In the app:** nodes installed with the systemd package offer signed updates under **More › Software update**. The node checks the
   update's signature before it installs it.
 - **systemd package:** download and verify the new package, extract it and run `sudo ./install.sh`
   from its top folder. Configuration, database and the SSH host key are kept.
@@ -382,10 +384,10 @@ Hardware, SIM plans, carrier charges and hosting are not included.
   In-app updates do not replace the program inside a container; update the image instead. With the
   setup script, run `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` with the new digest.
 
-Back up first: **More > Backups** in the app. A backup carries messages, call history and the
+Back up first: **More › Backup & restore** in the app. A backup carries messages, call history and the
 node's subscription binding; keep it private. To move to new hardware, create and download a
-backup on the old node, install and pair the new node, then import and restore the backup. Do
-not keep running the old node with the same data.
+backup on the old node, install and pair the new node, then import and restore the backup; this
+counts as one of the 3 moves in 30 days. Do not keep running the old node with the same data.
 
 ## Uninstall
 
@@ -429,6 +431,10 @@ linked glibc and GMP (LGPL). For every release:
   and shipping;
 - the SPDX SBOM and `THIRD_PARTY_NOTICES.txt` list all third-party components and their licenses.
 
+The Docker image also contains Alpine Linux packages under GPL, LGPL and MPL licenses; their corresponding
+source is published as the release asset `vonode-<version>-docker-alpine-sources.tar`, on the same terms
+(at least three years; physical copy from support@vonode.cc).
+
 ## Support and legal
 
 - Website: <https://vonode.cc>
@@ -441,5 +447,9 @@ linked glibc and GMP (LGPL). For every release:
 Vonode is not an emergency service. It depends on your hardware, carrier, network and Apple
 services; do not rely on it for emergency or life-safety communication. Use it only with SIMs,
 numbers and networks you are authorized to use, and follow your carrier's terms.
+
+DJI is a trademark of SZ DJI Technology Co., Ltd.; Quectel is a trademark of Quectel Wireless Solutions Co., Ltd.;
+Apple, iPhone, iPad and App Store are trademarks of Apple Inc.; Docker is a trademark of Docker, Inc. Vonode is not
+affiliated with or endorsed by them.
 
 © 2026 VONODE LLC. Vonode is a product of VONODE LLC.
