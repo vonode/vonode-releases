@@ -381,7 +381,7 @@ Hardware, SIM plans, carrier charges and hosting are not included.
   setup script, run `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` with the new digest.
 
 Back up first: **More › Backup & restore** in the app. A backup carries messages, call history and the
-node's subscription binding; keep it private. To move to new hardware, create and download a
+node's subscription or Lifetime binding; keep it private. To move to new hardware, create and download a
 backup on the old node, install and pair the new node, then import and restore the backup; this
 counts as one of the 3 moves in 30 days. Do not keep running the old node with the same data.
 
