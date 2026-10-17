@@ -16,6 +16,7 @@
   <a href="https://vonode.cc/zh-hans/install/"><img alt="安装指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
+  <a href="https://t.me/vonode_group"><img alt="Telegram" src="https://img.shields.io/badge/telegram-%40vonode__group-26a5e4?style=flat-square&logo=telegram&logoColor=white"></a>
 </p>
 
 Vonode 把装了蜂窝模组的 Linux 电脑变成你自己的私人节点。用 iPhone 和 iPad 上的 Vonode App
@@ -396,6 +397,7 @@ Docker 镜像还包含采用 GPL、LGPL 和 MPL 许可证的 Alpine Linux 软件
 - 安装指南：<https://vonode.cc/zh-hans/install/> · [分步指南](https://vonode.cc/zh-hans/install/guide/)
 - 支持的硬件：<https://vonode.cc/zh-hans/hardware/>
 - 支持：[support@vonode.cc](mailto:support@vonode.cc) · <https://vonode.cc/zh-hans/support/>
+- Telegram：[交流群](https://t.me/vonode_group) · [更新公告频道](https://t.me/vonode_app)
 - [隐私政策](https://vonode.cc/zh-hans/privacy/) · [使用条款](https://vonode.cc/zh-hans/terms/) ·
   [第三方声明](https://vonode.cc/zh-hans/third-party-notices/)
 

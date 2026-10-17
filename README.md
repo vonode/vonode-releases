@@ -16,6 +16,7 @@
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="Platform" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
+  <a href="https://t.me/vonode_group"><img alt="Telegram" src="https://img.shields.io/badge/telegram-%40vonode__group-26a5e4?style=flat-square&logo=telegram&logoColor=white"></a>
 </p>
 
 Vonode turns a Linux computer with cellular modules into a private node. The Vonode app for
@@ -437,6 +438,7 @@ source is published as the release asset `vonode-<version>-docker-alpine-sources
 - Install guide: <https://vonode.cc/install/> · [step-by-step guide](https://vonode.cc/install/guide/)
 - Supported hardware: <https://vonode.cc/hardware/>
 - Support: [support@vonode.cc](mailto:support@vonode.cc) · <https://vonode.cc/support/>
+- Telegram: [community group](https://t.me/vonode_group) · [announcements](https://t.me/vonode_app)
 - [Privacy Policy](https://vonode.cc/privacy/) · [Terms](https://vonode.cc/terms/) ·
   [Third-party notices](https://vonode.cc/third-party-notices/)
 

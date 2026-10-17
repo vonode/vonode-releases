@@ -16,6 +16,7 @@
   <a href="https://vonode.cc/zh-hant/install/"><img alt="安裝指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
   <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
+  <a href="https://t.me/vonode_group"><img alt="Telegram" src="https://img.shields.io/badge/telegram-%40vonode__group-26a5e4?style=flat-square&logo=telegram&logoColor=white"></a>
 </p>
 
 Vonode 將裝有行動網路模組的 Linux 電腦變成你自己的私人節點。用 iPhone 和 iPad 上的 Vonode App
@@ -397,6 +398,7 @@ Docker 映像檔也包含採用 GPL、LGPL 和 MPL 授權條款的 Alpine Linux 
 - 安裝指南：<https://vonode.cc/zh-hant/install/> · [逐步指南](https://vonode.cc/zh-hant/install/guide/)
 - 支援的硬體：<https://vonode.cc/zh-hant/hardware/>
 - 支援：[support@vonode.cc](mailto:support@vonode.cc) · <https://vonode.cc/zh-hant/support/>
+- Telegram：[交流群](https://t.me/vonode_group) · [更新公告頻道](https://t.me/vonode_app)
 - [隱私權政策](https://vonode.cc/zh-hant/privacy/) · [使用條款](https://vonode.cc/zh-hant/terms/) ·
   [第三方聲明](https://vonode.cc/zh-hant/third-party-notices/)
 
