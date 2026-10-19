@@ -1,4 +1,4 @@
-<!-- 由節點發布工具產生，請勿手動修改。 digest=sha256:603eeb3403084b9701f3e5fb0f4d687ff67c2b6b25932536f65081fe187b53be -->
+<!-- 由節點發布工具產生，請勿手動修改。 digest=sha256:14e60b354fb148f55683dacc8a4df29dd20d1a79ed676dafb703ebdaa395d775 -->
 # 支援的電信業者（Wi-Fi 通話）
 
 Vonode 用節點裡的 SIM 卡進行 Wi-Fi 通話（VoWiFi）和收發簡訊。本表由節點內的電信業者設定自動產生：428 筆，涵蓋 109 個國家和地區的 423 個網路代碼。網站上可以搜尋：https://vonode.cc/zh-hant/docs/carriers/

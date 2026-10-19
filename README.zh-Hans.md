@@ -78,7 +78,7 @@ ECM 固件）。蜂窝网络通话目前还没有在任何模组上得到确认�
 
 Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大陆的 App Store 目前不提供。
 
-<!-- CARRIERS:START 由节点发布工具生成，请勿手工修改。 digest=sha256:603eeb3403084b9701f3e5fb0f4d687ff67c2b6b25932536f65081fe187b53be -->
+<!-- CARRIERS:START 由节点发布工具生成，请勿手工修改。 digest=sha256:14e60b354fb148f55683dacc8a4df29dd20d1a79ed676dafb703ebdaa395d775 -->
 
 ## 支持的运营商（Wi-Fi 通话）
 

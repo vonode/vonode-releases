@@ -1,4 +1,4 @@
-<!-- 由节点发布工具生成，请勿手工修改。 digest=sha256:603eeb3403084b9701f3e5fb0f4d687ff67c2b6b25932536f65081fe187b53be -->
+<!-- 由节点发布工具生成，请勿手工修改。 digest=sha256:14e60b354fb148f55683dacc8a4df29dd20d1a79ed676dafb703ebdaa395d775 -->
 # 支持的运营商（Wi-Fi 通话）
 
 Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。本表由节点内的运营商设置自动生成：428 条，覆盖 109 个国家和地区的 423 个网络代码。网站上可以搜索：https://vonode.cc/zh-hans/docs/carriers/

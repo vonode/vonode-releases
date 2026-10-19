@@ -79,7 +79,7 @@ ECM 韌體）。行動網路通話目前還沒有在任何模組上得到確認�
 Vonode App 在中國大陸以外的 App Store 國家和地區提供，台灣、香港和澳門的 App Store 均可下載；中國大陸的
 App Store 目前不提供。
 
-<!-- CARRIERS:START 由節點發布工具產生，請勿手動修改。 digest=sha256:603eeb3403084b9701f3e5fb0f4d687ff67c2b6b25932536f65081fe187b53be -->
+<!-- CARRIERS:START 由節點發布工具產生，請勿手動修改。 digest=sha256:14e60b354fb148f55683dacc8a4df29dd20d1a79ed676dafb703ebdaa395d775 -->
 
 ## 支援的電信業者（Wi-Fi 通話）
 
