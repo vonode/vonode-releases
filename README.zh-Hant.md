@@ -30,6 +30,7 @@ v1.3.0 曾短暫發布後撤回，不再提供支援，請安裝 v1.4.0 或更�
 
 - [功能](#功能)
 - [硬體和系統需求](#硬體和系統需求)
+- [支援的電信業者（Wi-Fi 通話）](#支援的電信業者wi-fi-通話)
 - [下載與驗證](#下載與驗證)
 - [用 systemd 安裝套件安裝（建議）](#用-systemd-安裝套件安裝建議)
 - [用 Docker Compose 安裝](#用-docker-compose-安裝) · [一鍵安裝](#docker-compose-一鍵安裝)
@@ -76,6 +77,915 @@ ECM 韌體）。行動網路通話目前還沒有在任何模組上得到確認�
 
 Vonode App 在中國大陸以外的 App Store 國家和地區提供，台灣、香港和澳門的 App Store 均可下載；中國大陸的
 App Store 目前不提供。
+
+<!-- CARRIERS:START 由節點發布工具產生，請勿手動修改。 digest=sha256:2b5fa4296257a0f123a9eeda6895bba2d7af55185ea8619d571b0e47d376b7bc -->
+
+## 支援的電信業者（Wi-Fi 通話）
+
+Vonode 用節點裡的 SIM 卡進行 Wi-Fi 通話（VoWiFi）和收發簡訊。本表由節點內的電信業者設定自動產生：428 筆，涵蓋 109 個國家和地區的 423 個網路代碼。網站上可以搜尋：https://vonode.cc/zh-hant/docs/carriers/
+
+- 可能需要電信業者在你的方案上開通 Wi-Fi 通話。
+- 部分電信業者會核對線路的 Wi-Fi 通話授權（TS.43，例如 T-Mobile US 和 AT&T），部分電信業者只允許經過認證的裝置。Vonode 從不修改 IMEI。
+- 中國大陸（MCC 460/461）和印度（MCC 404/405/406）的 SIM 卡：不提供 Wi-Fi 通話（92 個網路代碼）；透過行動網路的通話和簡訊照常可用。
+- 未標「已實測」的項目我們沒有實測——結果取決於電信業者。
+- 未列出的電信業者也會使用標準 3GPP 設定，可能可以使用；結果取決於電信業者。
+- 試過某家電信業者？請告訴我們：support@vonode.cc 或 Telegram 群組 https://t.me/vonode_group。
+
+| 狀態 | 項目 | 說明 |
+| --- | ---: | --- |
+| 已實測 | 5 | 我們用這家電信業者的真實 SIM 卡，在自己的硬體和目前節點軟體上完成了 Wi-Fi 通話註冊。 |
+| 使用者回報可用 | 7 | 使用者告訴我們可以使用，我們還沒有在自己的硬體上驗證。 |
+| 已設定 | 51 | 節點內有為這家電信業者網路制定的設定。 |
+| 廠商資料設定 | 190 | 根據手機廠商公開的電信業者設定產生的設定，節點 v1.4.2 起提供。 |
+| 自動探索（盡力而為） | 175 | 節點從標準 3GPP 設定和廠商資料提示出發，自動調整。 |
+
+### 已實測和使用者回報可用的電信業者
+
+| 國家或地區 | 電信業者 | MCC-MNC | 狀態 | 專用設定 | 說明 |
+| --- | --- | --- | --- | --- | --- |
+| 英國 | giffgaff (O2) | `234-10` | 已實測 | 已內建 | 用 giffgaff SIM 卡在 O2 網路上實測。 |
+| 英國 | Vodafone UK | `234-15` | 已實測 | 已內建 | 用 Vodafone UK SIM 卡實測。 |
+| 英國 | CMLink UK (EE) | `234-33` | 已實測 | 已內建 | 用 CMLink UK SIM 卡在 EE 網路上實測。 |
+| 英國 | CTExcel (EE) | `234-33` | 已實測 | 已內建 | 用 CTExcel SIM 卡在 EE 網路上實測。 |
+| 美國 | Red Pocket (AT&T) | `310-280` | 已實測 | 已內建 | 用 Red Pocket SIM 卡在 AT&T 網路上實測。 |
+| 菲律賓 | DITO | `515-66` | 使用者回報可用 | 標準設定 | 使用者回報可用；我們未實測。 |
+| 台灣 | Far EasTone 遠傳電信 | `466-01` | 使用者回報可用 | 節點 v1.4.2 起 | 使用者回報可用；我們未實測。 |
+| 台灣 | Chunghwa Telecom 中華電信 | `466-92` | 使用者回報可用 | 節點 v1.4.2 起 | 使用者回報可用；我們未實測。 |
+| 台灣 | Taiwan Mobile 台灣大哥大 | `466-97` | 使用者回報可用 | 節點 v1.4.2 起 | 使用者回報可用；我們未實測。 |
+| 泰國 | AIS | `520-01` | 使用者回報可用 | 標準設定 | 使用者回報可用；我們未實測。 |
+| 泰國 | AIS | `520-03` | 使用者回報可用 | 標準設定 | 使用者回報可用；我們未實測。 |
+| 英國 | Lebara UK | `204-04` | 使用者回報可用 | 已內建 | 使用者回報可用；我們未實測。 Lebara UK 的 SIM 卡使用網路代碼 204-04（Vodafone 荷蘭號段）。 |
+
+### 依國家和地區列出全部電信業者
+
+含說明的完整表格：[CARRIERS.zh-Hant.md](CARRIERS.zh-Hant.md) · 可搜尋的網站頁面：https://vonode.cc/zh-hant/docs/carriers/
+
+<details><summary>阿爾巴尼亞 (1)</summary>
+
+- Vodafone `276-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>阿根廷 (7)</summary>
+
+- Movistar `722-007` · 自動探索（盡力而為）
+- Telecom Personal S.A. `722-034` · 廠商資料設定 · 節點 v1.4.2 起
+- Nuestro `722-036` · 自動探索（盡力而為）
+- Claro AR `722-310` · 廠商資料設定 · 節點 v1.4.2 起
+- Compañía de Telefonos del Interior Norte S.A. `722-320` · 自動探索（盡力而為）
+- Compañía de Telefonos del Interior S.A. `722-330` · 自動探索（盡力而為）
+- Telecom Personal S.A. `722-341` · 自動探索（盡力而為）
+
+</details>
+<details><summary>亞美尼亞 (1)</summary>
+
+- K Telecom CJSC `283-05` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>澳洲 (7)</summary>
+
+- Telstra `505-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Optus `505-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `505-03` · 廠商資料設定 · 節點 v1.4.2 起
+- AAPT Ltd. `505-14` · 自動探索（盡力而為）
+- Telstra `505-71` · 廠商資料設定 · 節點 v1.4.2 起
+- Telstra `505-72` · 廠商資料設定 · 節點 v1.4.2 起
+- Optus `505-90` · 自動探索（盡力而為）
+
+</details>
+<details><summary>奧地利 (9)</summary>
+
+- A1 `232-01` · 廠商資料設定 · 節點 v1.4.2 起
+- A1 `232-02` · 自動探索（盡力而為）
+- Magenta Telekom `232-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Drei `232-05` · 自動探索（盡力而為）
+- Magenta Telekom `232-07` · 廠商資料設定 · 節點 v1.4.2 起
+- Drei `232-10` · 廠商資料設定 · 節點 v1.4.2 起
+- A1 `232-11` · 自動探索（盡力而為）
+- A1 `232-12` · 自動探索（盡力而為）
+- Spusu AT `232-17` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>亞塞拜然 (2)</summary>
+
+- Azercell `400-01` · 自動探索（盡力而為）
+- Bakcell `400-02` · 自動探索（盡力而為）
+
+</details>
+<details><summary>巴哈馬 (1)</summary>
+
+- BTC `364-039` · 自動探索（盡力而為）
+
+</details>
+<details><summary>巴林 (2)</summary>
+
+- Batelco `426-01` · 廠商資料設定 · 節點 v1.4.2 起
+- stc BH `426-04` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>孟加拉 (1)</summary>
+
+- Grameenphone `470-01` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>巴貝多 (1)</summary>
+
+- Cable & Wireless (Barbados) Ltd. `342-600` · 自動探索（盡力而為）
+
+</details>
+<details><summary>白俄羅斯 (2)</summary>
+
+- A1 BY `257-01` · 廠商資料設定 · 節點 v1.4.2 起
+- MTS `257-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>比利時 (4)</summary>
+
+- Proximus `206-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Telenet `206-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Orange `206-10` · 廠商資料設定 · 節點 v1.4.2 起
+- BASE `206-20` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>不丹 (1)</summary>
+
+- Bhutan Telecom Ltd `402-11` · 自動探索（盡力而為）
+
+</details>
+<details><summary>巴西 (8)</summary>
+
+- Claro BR `724-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Vivo `724-06` · 廠商資料設定 · 節點 v1.4.2 起
+- Vivo `724-10` · 廠商資料設定 · 節點 v1.4.2 起
+- Vivo `724-11` · 廠商資料設定 · 節點 v1.4.2 起
+- Americel `724-12` · 自動探索（盡力而為）
+- Vivo `724-23` · 廠商資料設定 · 節點 v1.4.2 起
+- Claro BR `724-38` · 自動探索（盡力而為）
+- Brisanet `724-77` · 自動探索（盡力而為）
+
+</details>
+<details><summary>汶萊 (2)</summary>
+
+- B-Mobile `528-02` · 自動探索（盡力而為）
+- DST Com `528-11` · 自動探索（盡力而為）
+
+</details>
+<details><summary>保加利亞 (2)</summary>
+
+- A1 `284-01` · 自動探索（盡力而為）
+- VIVACOM `284-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>柬埔寨 (3)</summary>
+
+- Smart `456-02` · 自動探索（盡力而為）
+- Smart `456-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Smart `456-06` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>加拿大 (12)</summary>
+
+- TELUS `302-220` · 廠商資料設定 · 節點 v1.4.2 起
+- TELUS `302-221` · 廠商資料設定 · 節點 v1.4.2 起
+- EastLink `302-270` · 自動探索（盡力而為）
+- Fido `302-370` · 廠商資料設定 · 節點 v1.4.2 起
+- Freedom Mobile `302-490` · 自動探索（盡力而為）
+- Videotron `302-500` · 廠商資料設定 · 節點 v1.4.2 起
+- Bell Mobility `302-610` · 廠商資料設定 · 節點 v1.4.2 起
+- Bell Mobility `302-630` · 自動探索（盡力而為）
+- Bell Mobility `302-640` · 自動探索（盡力而為）
+- Bell `302-690` · 自動探索（盡力而為）
+- Rogers `302-720` · 自動探索（盡力而為）
+- Sask Tel Mobility `302-780` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>智利 (6)</summary>
+
+- Entel `730-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `730-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Claro CL `730-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `730-07` · 自動探索（盡力而為）
+- WOM `730-09` · 廠商資料設定 · 節點 v1.4.2 起
+- Entel `730-10` · 自動探索（盡力而為）
+
+</details>
+<details><summary>哥倫比亞 (3)</summary>
+
+- Claro CO `732-101` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `732-123` · 自動探索（盡力而為）
+- WOM `732-360` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>哥斯大黎加 (1)</summary>
+
+- Claro CR `712-03` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>克羅埃西亞 (3)</summary>
+
+- Hrvatski Telekom `219-01` · 廠商資料設定 · 節點 v1.4.2 起
+- A1/Tomato `219-10` · 廠商資料設定 · 節點 v1.4.2 起
+- Hrvatski Telekom `219-20` · 自動探索（盡力而為）
+
+</details>
+<details><summary>賽普勒斯 (3)</summary>
+
+- CYTA `280-01` · 自動探索（盡力而為）
+- epic `280-10` · 廠商資料設定 · 節點 v1.4.2 起
+- PrimeTel `280-20` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>捷克 (4)</summary>
+
+- T-Mobile `230-01` · 廠商資料設定 · 節點 v1.4.2 起
+- O2 `230-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `230-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `230-99` · 自動探索（盡力而為）
+
+</details>
+<details><summary>丹麥 (5)</summary>
+
+- TDC Mobil `238-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Telenor `238-02` · 廠商資料設定 · 節點 v1.4.2 起
+- 3 `238-06` · 廠商資料設定 · 節點 v1.4.2 起
+- Telia `238-20` · 廠商資料設定 · 節點 v1.4.2 起
+- Telia `238-30` · 自動探索（盡力而為）
+
+</details>
+<details><summary>多明尼加 (2)</summary>
+
+- Altice Dominicana `370-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Claro RD `370-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>厄瓜多 (2)</summary>
+
+- Claro EC `740-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Telecsa S.A. `740-02` · 自動探索（盡力而為）
+
+</details>
+<details><summary>埃及 (2)</summary>
+
+- Vodafone `602-02` · 自動探索（盡力而為）
+- Etisalat `602-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>薩爾瓦多 (1)</summary>
+
+- Claro SV `706-01` · 自動探索（盡力而為）
+
+</details>
+<details><summary>愛沙尼亞 (3)</summary>
+
+- Telia `248-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Elisa `248-02` · 自動探索（盡力而為）
+- Tele2 `248-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>芬蘭 (4)</summary>
+
+- Elisa `244-05` · 廠商資料設定 · 節點 v1.4.2 起
+- DNA `244-12` · 自動探索（盡力而為）
+- Elisa `244-21` · 自動探索（盡力而為）
+- Telia `244-91` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>法國 (12)</summary>
+
+- Orange `208-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Orange `208-02` · 廠商資料設定 · 節點 v1.4.2 起
+- SFR `208-09` · 自動探索（盡力而為）
+- SFR `208-10` · 廠商資料設定 · 節點 v1.4.2 起
+- SFR `208-11` · 自動探索（盡力而為）
+- SFR `208-13` · 自動探索（盡力而為）
+- Free Mobile `208-15` · 自動探索（盡力而為）
+- Bouygues Telecom `208-20` · 廠商資料設定 · 節點 v1.4.2 起
+- Bouygues Telecom `208-21` · 自動探索（盡力而為）
+- EURO INFORMATION TELECOM `208-26` · 廠商資料設定 · 節點 v1.4.2 起
+- Coriolis `208-27` · 廠商資料設定 · 節點 v1.4.2 起
+- Bouygues Telecom `208-88` · 自動探索（盡力而為）
+
+</details>
+<details><summary>法屬安地列斯 (1)</summary>
+
+- Orange Caraïbe Mobiles `340-01` · 自動探索（盡力而為）
+
+</details>
+<details><summary>法屬玻里尼西亞 (1)</summary>
+
+- Viti `547-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>德國 (9)</summary>
+
+- Telekom `262-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `262-02` · 廠商資料設定 · 節點 v1.4.2 起
+- O2 `262-03` · 已設定
+- Telekom `262-06` · 廠商資料設定 · 節點 v1.4.2 起
+- O2 `262-07` · 已設定
+- O2 `262-11` · 已設定
+- 1&1 `262-23` · 廠商資料設定 · 節點 v1.4.2 起
+- Truphone `262-42` · 自動探索（盡力而為）
+- Airbus DE `262-98` · 自動探索（盡力而為）
+
+</details>
+<details><summary>迦納 (1)</summary>
+
+- MTN `620-01` · 自動探索（盡力而為）
+
+</details>
+<details><summary>希臘 (4)</summary>
+
+- COSMOTE `202-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `202-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Info Quest S.A. `202-09` · 自動探索（盡力而為）
+- Telestet `202-10` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>瓜地馬拉 (2)</summary>
+
+- Claro GT `704-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `704-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>宏都拉斯 (1)</summary>
+
+- Claro HN `708-001` · 自動探索（盡力而為）
+
+</details>
+<details><summary>香港 (13)</summary>
+
+- csl / 1O1O `454-00` · 已設定
+- 3 Hong Kong `454-03` · 已設定
+- Hutchison 2G `454-04` · 自動探索（盡力而為）
+- SmarTone HK `454-06` · 廠商資料設定 · 節點 v1.4.2 起
+- MVNO/Trident `454-08` · 自動探索（盡力而為）
+- China Mobile Hong Kong 中國移動香港 `454-12` · 廠商資料設定 · 節點 v1.4.2 起
+- SmarTone HK `454-15` · 自動探索（盡力而為）
+- PCCW `454-16` · 自動探索（盡力而為）
+- SmarTone HK `454-17` · 自動探索（盡力而為）
+- csl / 1O1O `454-19` · 已設定
+- Public Mobile Networks/Reserved `454-20` · 自動探索（盡力而為）
+- Public Mobile Networks/Reserved `454-30` · 自動探索（盡力而為）
+- Public Mobile Networks/Reserved `454-31` · 自動探索（盡力而為）
+
+</details>
+<details><summary>匈牙利 (3)</summary>
+
+- Yettel `216-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Magyar Telekom `216-30` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `216-70` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>冰島 (2)</summary>
+
+- Tal hf `274-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Nova `274-11` · 自動探索（盡力而為）
+
+</details>
+<details><summary>印尼 (3)</summary>
+
+- Smartfren `510-09` · 廠商資料設定 · 節點 v1.4.2 起
+- Telkomsel `510-10` · 自動探索（盡力而為）
+- Smartfren `510-28` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>國際 (1)</summary>
+
+- AT&T Mobility (Wireless Maritime Services) `901-18` · 自動探索（盡力而為）
+
+</details>
+<details><summary>伊拉克 (1)</summary>
+
+- Asiacell `418-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>愛爾蘭 (4)</summary>
+
+- Vodafone `272-01` · 自動探索（盡力而為）
+- 3 `272-02` · 自動探索（盡力而為）
+- Meteor Mobile Communications Ltd. `272-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Sky IE `272-25` · 自動探索（盡力而為）
+
+</details>
+<details><summary>以色列 (5)</summary>
+
+- Partner Communications Co. Ltd. `425-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Cellcom Israel Ltd. `425-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Pelephone Communications Ltd. `425-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Hot Mobile `425-07` · 廠商資料設定 · 節點 v1.4.2 起
+- Partner Communications Co. Ltd. `425-10` · 自動探索（盡力而為）
+
+</details>
+<details><summary>義大利 (6)</summary>
+
+- TIM `222-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Kena `222-07` · 自動探索（盡力而為）
+- Vodafone `222-10` · 自動探索（盡力而為）
+- Spusu IT `222-56` · 自動探索（盡力而為）
+- WINDTRE `222-88` · 自動探索（盡力而為）
+- WINDTRE `222-99` · 自動探索（盡力而為）
+
+</details>
+<details><summary>牙買加 (1)</summary>
+
+- Cable & Wireless `338-180` · 自動探索（盡力而為）
+
+</details>
+<details><summary>日本 (5)</summary>
+
+- Rakuten Mobile(MNO) `440-11` · 自動探索（盡力而為）
+- au (KDDI) `440-50` · 自動探索（盡力而為）
+- au (KDDI) `440-51` · 廠商資料設定 · 節點 v1.4.2 起
+- au `440-52` · 自動探索（盡力而為）
+- au (KDDI) `440-54` · 自動探索（盡力而為）
+
+</details>
+<details><summary>約旦 (2)</summary>
+
+- Fastlink `416-01` · 自動探索（盡力而為）
+- Umniah `416-03` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>哈薩克 (1)</summary>
+
+- Beeline `401-01` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>肯亞 (2)</summary>
+
+- Safaricom `639-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Airtel Kenya `639-03` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>科威特 (3)</summary>
+
+- Zain `419-02` · 自動探索（盡力而為）
+- Ooredoo `419-03` · 廠商資料設定 · 節點 v1.4.2 起
+- STC `419-04` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>寮國 (1)</summary>
+
+- Unitel `457-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>拉脫維亞 (1)</summary>
+
+- Tele2/ZZ `247-02` · 自動探索（盡力而為）
+
+</details>
+<details><summary>列支敦斯登 (2)</summary>
+
+- Telecom FL AG `295-01` · 自動探索（盡力而為）
+- Mobilkom Liechtenstein `295-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>立陶宛 (2)</summary>
+
+- Telia `246-01` · 自動探索（盡力而為）
+- Tele2 `246-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>盧森堡 (3)</summary>
+
+- P&T Luxembourg `270-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Tango `270-77` · 廠商資料設定 · 節點 v1.4.2 起
+- Orange `270-99` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>澳門 (1)</summary>
+
+- Hutchison Telecom `455-03` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>馬來西亞 (12)</summary>
+
+- Digi `502-10` · 自動探索（盡力而為）
+- unifi mobile `502-11` · 自動探索（盡力而為）
+- Maxis/Hotlink `502-12` · 廠商資料設定 · 節點 v1.4.2 起
+- Celcom `502-13` · 自動探索（盡力而為）
+- Digi `502-143` · 自動探索（盡力而為）
+- Digi `502-146` · 自動探索（盡力而為）
+- Yes 5G `502-152` · 廠商資料設定 · 節點 v1.4.2 起
+- unifi mobile `502-153` · 廠商資料設定 · 節點 v1.4.2 起
+- Digi `502-16` · 廠商資料設定 · 節點 v1.4.2 起
+- TimeCel `502-17` · 自動探索（盡力而為）
+- U Mobile `502-18` · 自動探索（盡力而為）
+- Celcom `502-19` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>馬爾地夫 (1)</summary>
+
+- Ooredoo `472-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>墨西哥 (4)</summary>
+
+- Telcel `334-002` · 自動探索（盡力而為）
+- Telcel `334-020` · 廠商資料設定 · 節點 v1.4.2 起
+- AT&T MX `334-050` · 廠商資料設定 · 節點 v1.4.2 起
+- AT&T MX `334-090` · 自動探索（盡力而為）
+
+</details>
+<details><summary>摩納哥 (1)</summary>
+
+- MONACO TELECOM `212-10` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>蒙特內哥羅 (1)</summary>
+
+- Crnogorski Telekom `297-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>摩洛哥 (2)</summary>
+
+- Méditélécom `604-00` · 廠商資料設定 · 節點 v1.4.2 起
+- Maroc `604-01` · 自動探索（盡力而為）
+
+</details>
+<details><summary>莫三比克 (1)</summary>
+
+- Vodacom `643-04` · 自動探索（盡力而為）
+
+</details>
+<details><summary>尼泊爾 (1)</summary>
+
+- Nepal Telecommunications `429-01` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>荷蘭 (5)</summary>
+
+- Vodafone NL `204-04` · 已設定
+- KPN Mobiel `204-08` · 廠商資料設定 · 節點 v1.4.2 起
+- Odido `204-16` · 廠商資料設定 · 節點 v1.4.2 起
+- Truphone `204-33` · 自動探索（盡力而為）
+- KPN Lab `204-69` · 自動探索（盡力而為）
+
+</details>
+<details><summary>紐西蘭 (3)</summary>
+
+- Vodafone `530-01` · 已設定
+- Spark `530-05` · 已設定
+- 2degrees `530-24` · 已設定
+
+</details>
+<details><summary>尼加拉瓜 (1)</summary>
+
+- Claro NI `710-21` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>北馬其頓 (2)</summary>
+
+- Makedonski Telekom `294-01` · 自動探索（盡力而為）
+- Nov Operator `294-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>挪威 (4)</summary>
+
+- Telenor `242-01` · 自動探索（盡力而為）
+- Telia `242-02` · 廠商資料設定 · 節點 v1.4.2 起
+- OneCall `242-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Ice Norway `242-14` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>阿曼 (1)</summary>
+
+- Omantel `422-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>巴基斯坦 (3)</summary>
+
+- Jazz `410-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Telenor `410-06` · 自動探索（盡力而為）
+- Jazz `410-07` · 自動探索（盡力而為）
+
+</details>
+<details><summary>巴拿馬 (4)</summary>
+
+- Cable & Wireless Panama S.A. `714-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `714-02` · 自動探索（盡力而為）
+- Movistar `714-020` · 廠商資料設定 · 節點 v1.4.2 起
+- Claro PA `714-03` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>巴拉圭 (1)</summary>
+
+- Claro PY `744-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>秘魯 (3)</summary>
+
+- Movistar `716-06` · 廠商資料設定 · 節點 v1.4.2 起
+- Claro PE `716-10` · 廠商資料設定 · 節點 v1.4.2 起
+- Entel `716-17` · 自動探索（盡力而為）
+
+</details>
+<details><summary>菲律賓 (3)</summary>
+
+- Globe Telecom `515-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Smart Communications `515-03` · 廠商資料設定 · 節點 v1.4.2 起
+- DITO `515-66` · 使用者回報可用
+
+</details>
+<details><summary>波蘭 (5)</summary>
+
+- Plus `260-01` · 自動探索（盡力而為）
+- T-Mobile `260-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Orange `260-03` · 廠商資料設定 · 節點 v1.4.2 起
+- IDEA (UMTS)/PTK Centertel sp. Z.o.o. `260-05` · 自動探索（盡力而為）
+- PLAY `260-06` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>葡萄牙 (6)</summary>
+
+- NOS `268-03` · 廠商資料設定 · 節點 v1.4.2 起
+- MEO `268-06` · 自動探索（盡力而為）
+- NOS `268-93` · 自動探索（盡力而為）
+- NOS `268-97` · 自動探索（盡力而為）
+- NOS `268-98` · 自動探索（盡力而為）
+- NOS `268-99` · 自動探索（盡力而為）
+
+</details>
+<details><summary>波多黎各 (1)</summary>
+
+- Claro PR `330-110` · 自動探索（盡力而為）
+
+</details>
+<details><summary>卡達 (2)</summary>
+
+- Ooredoo `427-01` · 自動探索（盡力而為）
+- Vodafone `427-02` · 自動探索（盡力而為）
+
+</details>
+<details><summary>羅馬尼亞 (3)</summary>
+
+- Vodafone `226-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Digi.Mobil `226-05` · 自動探索（盡力而為）
+- Orange `226-10` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>俄羅斯 (6)</summary>
+
+- MTS (МТС) `250-01` · 廠商資料設定 · 節點 v1.4.2 起
+- MegaFon `250-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Orensot `250-11` · 自動探索（盡力而為）
+- Tele2 `250-20` · 自動探索（盡力而為）
+- Sberbank-Telecom `250-50` · 廠商資料設定 · 節點 v1.4.2 起
+- Beeline (Билайн) `250-99` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>留尼旺 (2)</summary>
+
+- Orange La Réunion `647-00` · 廠商資料設定 · 節點 v1.4.2 起
+- Zeop `647-04` · 自動探索（盡力而為）
+
+</details>
+<details><summary>沙烏地阿拉伯 (4)</summary>
+
+- STC `420-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Mobily `420-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Zain Saudi Arabia `420-04` · 廠商資料設定 · 節點 v1.4.2 起
+- Virgin `420-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>塞內加爾 (1)</summary>
+
+- Sentel GSM `608-02` · 自動探索（盡力而為）
+
+</details>
+<details><summary>塞爾維亞 (1)</summary>
+
+- A1 SRB `220-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>新加坡 (5)</summary>
+
+- Singtel `525-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Singtel `525-02` · 自動探索（盡力而為）
+- M1 `525-03` · 廠商資料設定 · 節點 v1.4.2 起
+- StarHub `525-05` · 廠商資料設定 · 節點 v1.4.2 起
+- SIMBA `525-10` · 自動探索（盡力而為）
+
+</details>
+<details><summary>斯洛伐克 (4)</summary>
+
+- Orange `231-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Slovak Telekom `231-02` · 自動探索（盡力而為）
+- 4ka SK `231-03` · 廠商資料設定 · 節點 v1.4.2 起
+- O2 `231-06` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>斯洛維尼亞 (1)</summary>
+
+- Telekom Slovenije `293-41` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>南非 (4)</summary>
+
+- Vodacom `655-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Telkom `655-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Cell C (Pty) Ltd. `655-07` · 廠商資料設定 · 節點 v1.4.2 起
+- MTN `655-10` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>西班牙 (7)</summary>
+
+- Vodafone `214-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Orange `214-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Movistar `214-05` · 自動探索（盡力而為）
+- Euskaltel `214-06` · 自動探索（盡力而為）
+- Movistar `214-07` · 廠商資料設定 · 節點 v1.4.2 起
+- Digi Spain `214-22` · 廠商資料設定 · 節點 v1.4.2 起
+- Truphone `214-27` · 自動探索（盡力而為）
+
+</details>
+<details><summary>斯里蘭卡 (2)</summary>
+
+- Sri Lanka Telecom Mobitel `413-01` · 自動探索（盡力而為）
+- Dialog Sri Lanka `413-02` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>蘇丹 (1)</summary>
+
+- Sudani `634-07` · 自動探索（盡力而為）
+
+</details>
+<details><summary>瑞典 (4)</summary>
+
+- Telia Sverige AB `240-01` · 廠商資料設定 · 節點 v1.4.2 起
+- 3 (Hi3G Access AB) `240-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Tele2/Comviq Sverige/Com Hem `240-07` · 廠商資料設定 · 節點 v1.4.2 起
+- Telenor Sverige AB `240-08` · 自動探索（盡力而為）
+
+</details>
+<details><summary>瑞士 (5)</summary>
+
+- Swisscom `228-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Sunrise `228-02` · 已設定
+- Salt `228-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Sunrise `228-12` · 已設定
+- UPC `228-53` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>台灣 (7)</summary>
+
+- Far EasTone 遠傳電信 `466-01` · 使用者回報可用 · 節點 v1.4.2 起
+- Far EasTone 遠傳電信 `466-02` · 自動探索（盡力而為）
+- Far EasTone 遠傳電信 `466-03` · 自動探索（盡力而為）
+- Far EasTone 遠傳電信 (former Asia Pacific Telecom) `466-05` · 廠商資料設定 · 節點 v1.4.2 起
+- Chunghwa Telecom 中華電信 `466-92` · 使用者回報可用 · 節點 v1.4.2 起
+- Taiwan Mobile 台灣大哥大 `466-97` · 使用者回報可用 · 節點 v1.4.2 起
+- TransAsia Telecoms `466-99` · 自動探索（盡力而為）
+
+</details>
+<details><summary>泰國 (6)</summary>
+
+- CAT CDMA `520-00` · 廠商資料設定 · 節點 v1.4.2 起
+- AIS `520-01` · 使用者回報可用
+- AIS `520-03` · 使用者回報可用
+- TrueMove H 4G LTE `520-04` · 廠商資料設定 · 節點 v1.4.2 起
+- dtac `520-05` · 自動探索（盡力而為）
+- dtac `520-18` · 自動探索（盡力而為）
+
+</details>
+<details><summary>土耳其 (4)</summary>
+
+- Turkcell `286-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Vodafone `286-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Türk Telekom `286-03` · 廠商資料設定 · 節點 v1.4.2 起
+- Türk Telekom `286-04` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>烏干達 (1)</summary>
+
+- Airtel Uganda `641-01` · 自動探索（盡力而為）
+
+</details>
+<details><summary>烏克蘭 (1)</summary>
+
+- Astelit `255-06` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>阿聯 (2)</summary>
+
+- e& UAE `424-02` · 廠商資料設定 · 節點 v1.4.2 起
+- du `424-03` · 自動探索（盡力而為）
+
+</details>
+<details><summary>英國 (22)</summary>
+
+- Lebara UK `204-04` · 使用者回報可用
+- Mapesbury Communications Ltd. `234-01` · 自動探索（盡力而為）
+- FMS Solutions Ltd `234-04` · 自動探索（盡力而為）
+- BT One Phone `234-08` · 自動探索（盡力而為）
+- giffgaff (O2) `234-10` · 已實測
+- O2 `234-10` · 已設定
+- Vodafone UK `234-15` · 已實測
+- Three Mobile `234-20` · 已設定
+- Truphone `234-25` · 自動探索（盡力而為）
+- EE `234-30` · 已設定
+- EE `234-31` · 已設定
+- EE `234-32` · 已設定
+- CMLink UK (EE) `234-33` · 已實測
+- CTExcel (EE) `234-33` · 已實測
+- EE `234-33` · 已設定
+- Virgin `234-38` · 自動探索（盡力而為）
+- Spusu GB `234-40` · 廠商資料設定 · 節點 v1.4.2 起
+- Cable and Wireless Guernsey `234-55` · 自動探索（盡力而為）
+- Sky `234-57` · 廠商資料設定 · 節點 v1.4.2 起
+- EE `234-86` · 已設定
+- Three Mobile `234-94` · 已設定
+- Three Mobile `235-94` · 已設定
+
+</details>
+<details><summary>美國 (63)</summary>
+
+- T-Mobile - US `310-026` · 已設定
+- AT&T `310-030` · 已設定
+- AT&T `310-070` · 已設定
+- AT&T Private `310-090` · 自動探索（盡力而為）
+- Pacific Telecom Inc `310-110` · 自動探索（盡力而為）
+- Sprint `310-120` · 廠商資料設定 · 節點 v1.4.2 起
+- Cricket Wireless `310-150` · 廠商資料設定 · 節點 v1.4.2 起
+- T-Mobile - US `310-160` · 已設定
+- AT&T `310-170` · 已設定
+- T-Mobile - US `310-200` · 已設定
+- T-Mobile - US `310-210` · 已設定
+- T-Mobile - US `310-220` · 已設定
+- T-Mobile - US `310-230` · 已設定
+- T-Mobile - US `310-240` · 已設定
+- T-Mobile - US `310-250` · 已設定
+- T-Mobile - US `310-260` · 已設定
+- T-Mobile - US `310-270` · 已設定
+- Red Pocket (AT&T) `310-280` · 已實測
+- AT&T `310-280` · 已設定
+- T-Mobile - US `310-300` · 已設定
+- T-Mobile - US `310-310` · 已設定
+- AT&T `310-380` · 已設定
+- AT&T `310-410` · 已設定
+- North East Cellular Inc. `310-450` · 自動探索（盡力而為）
+- T-Mobile - US `310-490` · 已設定
+- T-Mobile - US `310-530` · 已設定
+- AT&T `310-560` · 已設定
+- Verizon Wireless `310-590` · 自動探索（盡力而為）
+- T-Mobile - US `310-640` · 已設定
+- Jasper Wireless Inc. `310-650` · 自動探索（盡力而為）
+- T-Mobile - US `310-660` · 已設定
+- AT&T `310-680` · 已設定
+- Sea Mobile `310-730` · 自動探索（盡力而為）
+- T-Mobile - US `310-800` · 已設定
+- Verizon Wireless `310-890` · 自動探索（盡力而為）
+- AT&T `310-950` · 已設定
+- AT&T `311-180` · 已設定
+- U.S. Cellular `311-220` · 自動探索（盡力而為）
+- C Spire `311-230` · 自動探索（盡力而為）
+- Verizon Wireless `311-270` · 自動探索（盡力而為）
+- GCI Communications Corp. `311-370` · 自動探索（盡力而為）
+- Verizon Wireless `311-480` · 廠商資料設定 · 節點 v1.4.2 起
+- Verizon Wireless `311-481` · 自動探索（盡力而為）
+- T-Mobile - US `311-490` · 已設定
+- U.S. Cellular `311-580` · 廠商資料設定 · 節點 v1.4.2 起
+- U.S. Cellular `311-589` · 自動探索（盡力而為）
+- United Wireless `311-650` · 自動探索（盡力而為）
+- T-Mobile - Private 5G `311-660` · 廠商資料設定 · 節點 v1.4.2 起
+- Cellcom `311-840` · 廠商資料設定 · 節點 v1.4.2 起
+- T-Mobile - US `311-882` · 已設定
+- T-Mobile - US `312-250` · 已設定
+- strata `312-290` · 自動探索（盡力而為）
+- NexTech Ota `312-420` · 自動探索（盡力而為）
+- Sprint `312-530` · 廠商資料設定 · 節點 v1.4.2 起
+- FirstNet (Lab) `312-670` · 廠商資料設定 · 節點 v1.4.2 起
+- FirstNet `313-100` · 廠商資料設定 · 節點 v1.4.2 起
+- FirstNet `313-110` · 自動探索（盡力而為）
+- FirstNet `313-120` · 自動探索（盡力而為）
+- FirstNet `313-130` · 自動探索（盡力而為）
+- FirstNet `313-140` · 自動探索（盡力而為）
+- Dish Wireless (Boost) `313-340` · 廠商資料設定 · 節點 v1.4.2 起
+- Optimum `313-390` · 廠商資料設定 · 節點 v1.4.2 起
+- Liberty Mobile `313-790` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>烏拉圭 (1)</summary>
+
+- Claro UY `748-10` · 廠商資料設定 · 節點 v1.4.2 起
+
+</details>
+<details><summary>越南 (4)</summary>
+
+- Mobifone `452-01` · 廠商資料設定 · 節點 v1.4.2 起
+- Vinaphone `452-02` · 廠商資料設定 · 節點 v1.4.2 起
+- Viettel Telecom `452-04` · 廠商資料設定 · 節點 v1.4.2 起
+- Vietnamobile `452-05` · 自動探索（盡力而為）
+
+</details>
+<details><summary>尚比亞 (2)</summary>
+
+- Airtel Zambia `645-01` · 自動探索（盡力而為）
+- Telecel Zambia Ltd. `645-02` · 自動探索（盡力而為）
+
+</details>
+
+<!-- CARRIERS:END -->
 
 ## 下載與驗證
 
