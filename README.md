@@ -34,7 +34,7 @@ Version v1.3.0 was briefly published and then withdrawn; it is not supported. In
 - [Requirements](#requirements)
 - [Download and verify](#download-and-verify)
 - [Install with the systemd package (recommended)](#install-with-the-systemd-package-recommended)
-- [Install with Docker Compose](#install-with-docker-compose)
+- [Install with Docker Compose](#install-with-docker-compose) · [one-click](#docker-compose-one-click)
 - [Pair the app](#pair-the-app)
 - [Free plan, subscription or Lifetime](#free-plan-subscription-or-lifetime)
 - [Upgrade](#upgrade)
@@ -240,6 +240,32 @@ release also publishes a `docker-compose.yml` that pins its image by digest.
 
 Use one install method per host: do not run the Docker setup next to the systemd package.
 
+### Docker Compose one-click
+
+On a Linux host with Docker Engine and the Compose plugin ([step 1](#1-prepare-the-host-1) below), one
+command downloads the release's `docker-compose.yml`, verifies it, installs it in `/opt/vonode-compose`,
+starts both containers, waits until they are healthy and shows the pairing QR code:
+
+```sh
+curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
+```
+
+- Download and verify only, without changing anything:
+  `curl -fsSL https://vonode.cc/install/compose.sh | sh -s -- --dry-run`
+- Options: `--host <address the phone uses>`, `--port <port>`, `--dir <folder>`, `--version vX.Y.Z`,
+  `--no-start`, `--no-pair`. Run the command again to update.
+- The script is also the release asset `compose-install.sh` (the same bytes, SHA-256
+  `ca1740be6b659dc44335775b712a9409f16a5592a5e00b8ba2bd8303540a4232`, also in `compose-install.sh.sha256`). You can download it, read it and run
+  `sudo sh compose-install.sh` instead of piping it.
+- Verification: for v1.4.1 the script checks `docker-compose.yml` against a SHA-256 built into the script
+  (v1.4.1 publishes only an unsigned `.sha256` next to the file); from v1.4.2 it checks the release
+  signature `docker-compose.yml.sig` with the Vonode release key. The image stays pinned by digest.
+- On an arm64 host it installs the experimental pre-release `v1.4.1-arm64.1` and says so.
+- It does not disable ModemManager or change other services; when ModemManager is running it prints the
+  command to disable it. It needs no account and sends no data.
+
+Steps 1 to 4 below do the same by hand.
+
 ### 1. Prepare the host
 
 The Linux, module and SIM requirements are the same as above. Docker Desktop on macOS or Windows
@@ -380,6 +406,7 @@ Hardware, SIM plans, carrier charges and hosting are not included.
   Configuration, database and the SSH host key are kept, and both containers always run the same image.
   In-app updates do not replace the program inside a container; update the image instead. With the
   setup script, run `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` with the new digest.
+  Installed with the [one-click command](#docker-compose-one-click)? Run it again.
 
 Back up first: **More › Backup & restore** in the app. A backup carries messages, call history and the
 node's subscription or Lifetime binding; keep it private. To move to new hardware, create and download a

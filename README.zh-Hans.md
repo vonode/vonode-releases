@@ -32,7 +32,7 @@ v1.3.0 曾短暂发布后撤回，不再提供支持，请安装 v1.4.0 或更�
 - [硬件和系统要求](#硬件和系统要求)
 - [下载与校验](#下载与校验)
 - [用 systemd 安装包安装（推荐）](#用-systemd-安装包安装推荐)
-- [用 Docker Compose 安装](#用-docker-compose-安装)
+- [用 Docker Compose 安装](#用-docker-compose-安装) · [一键安装](#docker-compose-一键安装)
 - [配对 App](#配对-app)
 - [免费方案、订阅或终身版](#免费方案订阅或终身版)
 - [升级](#升级)
@@ -225,6 +225,30 @@ SSH 服务，App 通过 TCP 2222 连接它）。配对、方案和 App 的用法
 
 一台主机只用一种安装方式：不要在已安装 systemd 安装包的主机上再运行 Docker 方式。
 
+### Docker Compose 一键安装
+
+在装好 Docker Engine 和 Compose 插件的 Linux 主机上（见下面第 1 步），一条命令即可下载并校验对应版本的
+`docker-compose.yml`，安装到 `/opt/vonode-compose`，启动两个容器，等它们都 healthy 后显示配对二维码：
+
+```sh
+curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
+```
+
+- 只下载并校验、不改动任何东西：
+  `curl -fsSL https://vonode.cc/install/compose.sh | sh -s -- --dry-run`
+- 选项：`--host <手机访问节点的地址>`、`--port <端口>`、`--dir <目录>`、`--version vX.Y.Z`、`--no-start`、
+  `--no-pair`。再次运行同一条命令即可更新。
+- 这个脚本也是发布资产 `compose-install.sh`（逐字节相同，SHA-256 为
+  `ca1740be6b659dc44335775b712a9409f16a5592a5e00b8ba2bd8303540a4232`，也写在 `compose-install.sh.sha256` 中）。也可以先下载、阅读，再用
+  `sudo sh compose-install.sh` 运行，不经管道。
+- 校验方式：v1.4.1 用脚本内置的 SHA-256 校验 `docker-compose.yml`（v1.4.1 在文件旁只发布了未签名的
+  `.sha256`）；自 v1.4.2 起用 Vonode 发布密钥校验发布签名 `docker-compose.yml.sig`。镜像始终按 digest 固定。
+- 在 arm64 主机上，它会安装实验性的预发布版本 `v1.4.1-arm64.1` 并给出提示。
+- 它不会停用 ModemManager，也不会改动其他服务；ModemManager 正在运行时，它会打印停用它的命令。不需要账号，
+  不发送任何数据。
+
+下面第 1 到第 4 步是同样操作的手动版本。
+
 ### 1. 准备主机
 
 Linux、模组和 SIM 卡的要求与上文相同。macOS 或 Windows 上的 Docker Desktop 无法访问 USB 模组，请在 Linux
@@ -343,7 +367,7 @@ App 和节点必须能通过二维码里的地址互相访问。如果 App 提�
 - **在 App 中：** 用 systemd 安装包安装的节点会在“更多 › 软件更新”中提供带签名的更新。节点在安装前会验证更新的签名。
 - **systemd 安装包：** 下载并校验新的安装包，解压后在其顶层目录运行 `sudo ./install.sh`。配置、数据库和
   SSH 主机密钥都会保留。
-- **Docker Compose：** 把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下载到同一目录并校验，
+- **Docker Compose：** 用[一键安装](#docker-compose-一键安装)装的节点，再运行一次那条命令即可。手动安装时，把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下载到同一目录并校验，
   然后运行 `sudo docker compose pull` 和 `sudo docker compose up -d`。配置、数据库和 SSH 主机密钥都会保留，
   两个容器始终使用同一个镜像。App 内更新不会替换容器里的程序，请改为更新镜像。使用安装脚本时，运行
   `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` 并传入新的 digest。

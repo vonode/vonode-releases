@@ -32,7 +32,7 @@ v1.3.0 曾短暫發布後撤回，不再提供支援，請安裝 v1.4.0 或更�
 - [硬體和系統需求](#硬體和系統需求)
 - [下載與驗證](#下載與驗證)
 - [用 systemd 安裝套件安裝（建議）](#用-systemd-安裝套件安裝建議)
-- [用 Docker Compose 安裝](#用-docker-compose-安裝)
+- [用 Docker Compose 安裝](#用-docker-compose-安裝) · [一鍵安裝](#docker-compose-一鍵安裝)
 - [配對 App](#配對-app)
 - [免費方案、訂閱或終身版](#免費方案訂閱或終身版)
 - [升級](#升級)
@@ -226,6 +226,30 @@ digest 固定映像檔的 `docker-compose.yml`。
 
 一台主機只用一種安裝方式：不要在已安裝 systemd 安裝套件的主機上再執行 Docker 方式。
 
+### Docker Compose 一鍵安裝
+
+在裝好 Docker Engine 和 Compose 外掛的 Linux 主機上（見下方第 1 步），一道指令即可下載並驗證對應版本的
+`docker-compose.yml`，安裝到 `/opt/vonode-compose`，啟動兩個容器，等它們都 healthy 後顯示配對 QR Code：
+
+```sh
+curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
+```
+
+- 只下載並驗證、不變更任何東西：
+  `curl -fsSL https://vonode.cc/install/compose.sh | sh -s -- --dry-run`
+- 選項：`--host <手機連到節點的位址>`、`--port <連接埠>`、`--dir <目錄>`、`--version vX.Y.Z`、`--no-start`、
+  `--no-pair`。再次執行同一道指令即可更新。
+- 這個指令碼也是發行資產 `compose-install.sh`（逐位元組相同，SHA-256 為
+  `ca1740be6b659dc44335775b712a9409f16a5592a5e00b8ba2bd8303540a4232`，也寫在 `compose-install.sh.sha256` 中）。也可以先下載、閱讀，再用
+  `sudo sh compose-install.sh` 執行，不經管線。
+- 驗證方式：v1.4.1 用指令碼內建的 SHA-256 驗證 `docker-compose.yml`（v1.4.1 在檔案旁只發布了未簽章的
+  `.sha256`）；自 v1.4.2 起用 Vonode 發行金鑰驗證發行簽章 `docker-compose.yml.sig`。映像檔始終以 digest 固定。
+- 在 arm64 主機上，它會安裝實驗性的預先發行版本 `v1.4.1-arm64.1` 並提示。
+- 它不會停用 ModemManager，也不會變更其他服務；ModemManager 正在執行時，它會印出停用它的指令。不需要帳號，
+  不傳送任何資料。
+
+下方第 1 到第 4 步是同樣操作的手動版本。
+
 ### 1. 準備主機
 
 Linux、模組和 SIM 卡的需求與上文相同。macOS 或 Windows 上的 Docker Desktop 無法存取 USB 模組，請在 Linux
@@ -344,7 +368,7 @@ App 和節點必須能透過 QR Code 裡的位址互相連線。如果 App 顯�
 - **在 App 中：** 以 systemd 安裝套件安裝的節點會在「更多 › 軟體更新」中提供已簽章的更新。節點在安裝前會驗證更新的簽章。
 - **systemd 安裝套件：** 下載並驗證新的安裝套件，解壓縮後在最上層目錄執行 `sudo ./install.sh`。設定、
   資料庫和 SSH 主機金鑰都會保留。
-- **Docker Compose：** 把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下載到同一目錄並驗證，
+- **Docker Compose：** 用[一鍵安裝](#docker-compose-一鍵安裝)裝的節點，再執行一次那道指令即可。手動安裝時，把新版本的 `docker-compose.yml` 和 `docker-compose.yml.sha256` 下載到同一目錄並驗證，
   然後執行 `sudo docker compose pull` 和 `sudo docker compose up -d`。設定、資料庫和 SSH 主機金鑰都會保留，
   兩個容器一律使用同一個映像檔。App 內更新不會替換容器裡的程式，請改為更新映像檔。使用安裝指令碼時，執行
   `sudo ./setup.sh --image vonode/vonode@sha256:<digest>` 並傳入新的 digest。
