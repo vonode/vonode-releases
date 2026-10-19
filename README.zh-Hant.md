@@ -11,6 +11,19 @@
   Vonode 節點軟體的發行下載、安裝指南和 Wiki。
 </p>
 
+## 一鍵安裝
+
+在已安裝 Docker 的 64 位元 Linux（amd64 或 arm64）上，一道指令即可用 Docker Compose 裝好 Vonode 節點；
+升級時再執行同一道指令即可。
+
+```bash
+curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
+```
+
+選項、只驗證不安裝（dry run）以及指令碼如何驗證發行檔案：見 [Docker Compose 一鍵安裝](#docker-compose-一鍵安裝)。
+其他安裝方式：[systemd 安裝套件（建議）](#用-systemd-安裝套件安裝建議) ·
+[分步用 Docker Compose 安裝](#用-docker-compose-安裝) · [vonode.cc 上的安裝指南](https://vonode.cc/zh-hant/install/)
+
 <p align="center">
   <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="最新版本" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=latest%20release&color=2a9468"></a>
   <a href="https://vonode.cc/zh-hant/install/"><img alt="安裝指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
@@ -28,6 +41,7 @@ v1.3.0 曾短暫發布後撤回，不再提供支援，請安裝 v1.4.0 或更�
 
 ## 目錄
 
+- [一鍵安裝](#一鍵安裝)
 - [功能](#功能)
 - [硬體和系統需求](#硬體和系統需求)
 - [支援的電信業者（Wi-Fi 通話）](#支援的電信業者wi-fi-通話)

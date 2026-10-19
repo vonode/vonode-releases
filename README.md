@@ -11,6 +11,19 @@
   Release downloads, install guides and wiki for the Vonode node software.
 </p>
 
+## One-click install
+
+On 64-bit Linux (amd64 or arm64) with Docker installed, one command installs the Vonode node with Docker Compose.
+Run the same command again to upgrade.
+
+```bash
+curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
+```
+
+Options, a dry run and how the script verifies the release: [Docker Compose one-click](#docker-compose-one-click).
+Other ways to install: [systemd package (recommended)](#install-with-the-systemd-package-recommended) ·
+[Docker Compose step by step](#install-with-docker-compose) · [install guide on vonode.cc](https://vonode.cc/install/)
+
 <p align="center">
   <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=latest%20release&color=2a9468"></a>
   <a href="https://vonode.cc/install/"><img alt="Install guide" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
@@ -30,6 +43,7 @@ Version v1.3.0 was briefly published and then withdrawn; it is not supported. In
 
 ## Contents
 
+- [One-click install](#one-click-install)
 - [Features](#features)
 - [Requirements](#requirements)
 - [Supported carriers (Wi-Fi Calling)](#supported-carriers-wi-fi-calling)
