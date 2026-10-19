@@ -14,7 +14,7 @@
 <p align="center">
   <a href="https://github.com/vonode/vonode-releases/releases/latest"><img alt="最新版本" src="https://img.shields.io/github/v/release/vonode/vonode-releases?style=flat-square&label=latest%20release&color=2a9468"></a>
   <a href="https://vonode.cc/zh-hans/install/"><img alt="安装指南" src="https://img.shields.io/badge/docs-install%20guide-2475c2?style=flat-square"></a>
-  <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64-141b26?style=flat-square">
+  <img alt="平台" src="https://img.shields.io/badge/node-Linux%20amd64%20%7C%20arm64-141b26?style=flat-square">
   <img alt="App" src="https://img.shields.io/badge/app-iOS%20%26%20iPadOS%2017%2B-141b26?style=flat-square">
   <a href="https://t.me/vonode_group"><img alt="Telegram" src="https://img.shields.io/badge/telegram-%40vonode__group-26a5e4?style=flat-square&logo=telegram&logoColor=white"></a>
 </p>
@@ -34,6 +34,7 @@ v1.3.0 曾短暂发布后撤回，不再提供支持，请安装 v1.4.0 或更�
 - [下载与校验](#下载与校验)
 - [用 systemd 安装包安装（推荐）](#用-systemd-安装包安装推荐)
 - [用 Docker Compose 安装](#用-docker-compose-安装) · [一键安装](#docker-compose-一键安装)
+- [NAS（群晖、威联通、Unraid、TrueNAS）](#nas群晖威联通unraidtruenas)
 - [配对 App](#配对-app)
 - [免费方案、订阅或终身版](#免费方案订阅或终身版)
 - [升级](#升级)
@@ -65,19 +66,19 @@ v1.3.0 曾短暂发布后撤回，不再提供支持，请安装 v1.4.0 或更�
 
 | 项目 | 要求 |
 |---|---|
-| **主机** | 64 位 x86（amd64）Linux：Debian 12、Ubuntu 22.04 及以上，或 Fedora；安装包方式需要 systemd，Docker 方式需要 Docker Engine 和 Compose v2。需要 root 权限；systemd 安装包还需要完整的 `iproute2` 软件包（Docker 镜像自带）。Intel N100 迷你主机、二手瘦客户机或 NUC 都合适；节点本身只需 2 GB 内存和 4 GB 磁盘。已验证平台：Ubuntu 22.04，amd64。 |
+| **主机** | 64 位 x86（amd64）或 64 位 ARM（arm64）Linux：Debian 12、Ubuntu 22.04 及以上，或 Fedora；安装包方式需要 systemd，Docker 方式需要 Docker Engine 和 Compose v2。需要 root 权限；systemd 安装包还需要完整的 `iproute2` 软件包（Docker 镜像自带）。Intel N100 迷你主机、二手瘦客户机或 NUC 都合适。自 v1.4.2 起，arm64 与 amd64 一同作为正式版本发布：树莓派 4 或 5 装 64 位系统（例如 64 位 Raspberry Pi OS）即可使用，32 位系统不行。节点本身只需 2 GB 内存和 4 GB 磁盘。已验证平台：Ubuntu 22.04，amd64。 |
 | **蜂窝模组** | 带 USB 串口（AT）和 QMI 接口、基于高通平台的 Quectel 模组。已实测：DJI Cellular 模块（内置 Quectel EG25-G，需按硬件页面的说明一次性切换 USB 标识）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在代码中支持，但尚未实测。每个节点最多连接五个模组。 |
 | **天线和供电** | 主天线和分集天线都要接上。连接多个模组时，请使用带供电的 USB 集线器。 |
 | **SIM 卡与网络** | 已关闭 PIN 码的 SIM 卡；如需 eSIM，请使用可插拔 eUICC 卡。运营商已在套餐中开通 Wi-Fi 通话。手机能访问到 TCP 2222 端口：在路由器上做端口转发，或使用 WireGuard、Tailscale 等 VPN。 |
 | **App** | iPhone 和 iPad 上的 Vonode 1.4.0 或更高版本，需要 iOS 或 iPadOS 17 及以上。App Store 免费下载。 |
 
-暂不支持：树莓派等 ARM（arm64）主机（计划在之后的版本提供）、OpenWrt 路由器、macOS 或 Windows
+暂不支持：32 位 ARM（armv7）主机和 32 位操作系统、OpenWrt 路由器、macOS 或 Windows
 上的 Docker Desktop、没有 USB 直通的虚拟机，以及只提供网卡功能的 USB 上网卡（HiLink、仅 RNDIS 或仅
 ECM 固件）。蜂窝网络通话目前还没有在任何模组上得到确认；通话可以通过 Wi-Fi 通话进行。
 
 Vonode App 在中国大陆以外的 App Store 国家和地区提供；中国大陆的 App Store 目前不提供。
 
-<!-- CARRIERS:START 由节点发布工具生成，请勿手工修改。 digest=sha256:2b5fa4296257a0f123a9eeda6895bba2d7af55185ea8619d571b0e47d376b7bc -->
+<!-- CARRIERS:START 由节点发布工具生成，请勿手工修改。 digest=sha256:603eeb3403084b9701f3e5fb0f4d687ff67c2b6b25932536f65081fe187b53be -->
 
 ## 支持的运营商（Wi-Fi 通话）
 
@@ -107,13 +108,13 @@ Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。�
 | 英国 | CMLink UK (EE) | `234-33` | 已实测 | 已内置 | 用 CMLink UK SIM 卡在 EE 网络上实测。 |
 | 英国 | CTExcel (EE) | `234-33` | 已实测 | 已内置 | 用 CTExcel SIM 卡在 EE 网络上实测。 |
 | 美国 | Red Pocket (AT&T) | `310-280` | 已实测 | 已内置 | 用 Red Pocket SIM 卡在 AT&T 网络上实测。 |
-| 菲律宾 | DITO | `515-66` | 用户反馈可用 | 标准设置 | 用户反馈可用；我们未实测。 |
+| 菲律宾 | DITO | `515-66` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
 | 台湾 | Far EasTone 遠傳電信 | `466-01` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
 | 台湾 | Chunghwa Telecom 中華電信 | `466-92` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
 | 台湾 | Taiwan Mobile 台灣大哥大 | `466-97` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
-| 泰国 | AIS | `520-01` | 用户反馈可用 | 标准设置 | 用户反馈可用；我们未实测。 |
-| 泰国 | AIS | `520-03` | 用户反馈可用 | 标准设置 | 用户反馈可用；我们未实测。 |
-| 英国 | Lebara UK | `204-04` | 用户反馈可用 | 已内置 | 用户反馈可用；我们未实测。 Lebara UK 的 SIM 卡使用网络代码 204-04（Vodafone 荷兰号段）。 |
+| 泰国 | AIS | `520-01` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
+| 泰国 | AIS | `520-03` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 |
+| 英国 | Lebara UK | `204-04` | 用户反馈可用 | 节点 v1.4.2 起 | 用户反馈可用；我们未实测。 Lebara UK 的 SIM 卡使用网络代码 204-04（Vodafone 荷兰号段）。 |
 
 ### 按国家和地区列出全部运营商
 
@@ -683,7 +684,7 @@ Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。�
 
 - Globe Telecom `515-02` · 厂商数据配置 · 节点 v1.4.2 起
 - Smart Communications `515-03` · 厂商数据配置 · 节点 v1.4.2 起
-- DITO `515-66` · 用户反馈可用
+- DITO `515-66` · 用户反馈可用 · 节点 v1.4.2 起
 
 </details>
 <details><summary>波兰 (5)</summary>
@@ -840,8 +841,8 @@ Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。�
 <details><summary>泰国 (6)</summary>
 
 - CAT CDMA `520-00` · 厂商数据配置 · 节点 v1.4.2 起
-- AIS `520-01` · 用户反馈可用
-- AIS `520-03` · 用户反馈可用
+- AIS `520-01` · 用户反馈可用 · 节点 v1.4.2 起
+- AIS `520-03` · 用户反馈可用 · 节点 v1.4.2 起
 - TrueMove H 4G LTE `520-04` · 厂商数据配置 · 节点 v1.4.2 起
 - dtac `520-05` · 自动发现（尽力而为）
 - dtac `520-18` · 自动发现（尽力而为）
@@ -873,7 +874,7 @@ Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。�
 </details>
 <details><summary>英国 (22)</summary>
 
-- Lebara UK `204-04` · 用户反馈可用
+- Lebara UK `204-04` · 用户反馈可用 · 节点 v1.4.2 起
 - Mapesbury Communications Ltd. `234-01` · 自动发现（尽力而为）
 - FMS Solutions Ltd `234-04` · 自动发现（尽力而为）
 - BT One Phone `234-08` · 自动发现（尽力而为）
@@ -993,15 +994,20 @@ Vonode 用节点里的 SIM 卡进行 Wi-Fi 通话（VoWiFi）和收发短信。�
 
 | 文件 | 说明 |
 |---|---|
-| `vonode_<version>_linux_amd64_commercial.tar.gz` | 安装包：节点程序、`install.sh`、systemd 单元、`docker/` 部署文件、指南和许可证 |
-| `vonode_<version>_linux_amd64_commercial.tar.gz.sha256` | 安装包的 SHA-256 校验值 |
-| `docker-compose.yml` 和 `docker-compose.yml.sha256` | 本版本的 Docker Compose 文件（按 digest 固定镜像）及其校验值 |
-| `vonode_<version>_linux_amd64_commercial` 和 `.sig` | 单文件形式的节点程序及其发布签名，供 App 内软件更新使用 |
-| `latest-commercial.json` | 带签名的更新清单，节点据此在 App 中提供更新 |
-| `vonode_<version>_linux_amd64_commercial.sources.tar` | GPL 和 LGPL 组件的对应源代码 |
+| `vonode_<version>_linux_<arch>_commercial.tar.gz` | 安装包：节点程序、`install.sh`、systemd 单元、`docker/` 部署文件、指南和许可证，以及 `SHA256SUMS` 和覆盖整个安装包的发布签名 `SHA256SUMS.sig` |
+| `vonode_<version>_linux_<arch>_commercial.tar.gz.sha256` | 安装包的 SHA-256 校验值 |
+| `vonode_<version>_linux_<arch>_commercial` 和 `.sig` | 单文件形式的节点程序及其发布签名，供 App 内软件更新使用 |
+| `vonode_<version>_linux_<arch>_commercial.THIRD_PARTY_NOTICES.txt` | 第三方组件及其许可证 |
+| `vonode_<version>_linux_<arch>_commercial.spdx.json` | 软件物料清单（SPDX SBOM） |
+| `vonode_<version>_linux_<arch>_commercial.sources.tar` | GPL 和 LGPL 组件的对应源代码 |
+| `latest-commercial.json` 和 `latest-commercial.json.sig` | 带签名的发布清单（所有架构共用一份），节点和 Docker Compose 一键安装脚本据此获取版本，以及它的发布签名 |
+| `docker-compose.yml`、`docker-compose.yml.sha256` 和 `docker-compose.yml.sig` | 本版本的 Docker Compose 文件（按 digest 固定镜像）、校验值，以及（自 v1.4.2 起）用发布密钥做的签名 |
+| `compose-install.sh` 和 `compose-install.sh.sha256` | [Docker Compose 一键安装](#docker-compose-一键安装)脚本及其校验值 |
+| `vonode-<version>-nas.tar.gz` 及 `.sha256` | 供 [NAS](#nas群晖威联通unraidtruenas) 容器应用使用的现成文件（自 v1.4.2 起）及其校验值 |
 | `vonode-<version>-docker-alpine-sources.tar` 及 `.sha256` | Docker 镜像内 GPL、LGPL 和 MPL 软件包的对应源代码 |
-| `vonode_<version>_linux_amd64_commercial.spdx.json` | 软件物料清单（SPDX SBOM） |
-| `vonode_<version>_linux_amd64_commercial.THIRD_PARTY_NOTICES.txt` | 第三方组件及其许可证 |
+
+`<arch>` 在 64 位 x86 上是 `amd64`（`uname -m` 输出 `x86_64`），自 v1.4.2 起在 64 位 ARM 上是 `arm64`
+（`uname -m` 输出 `aarch64`）。下面的命令以 `amd64` 为例；在 arm64 主机上请改成 `arm64`。
 
 ### 校验 SHA-256
 
@@ -1029,14 +1035,15 @@ MCowBQYDK2VwAyEAnIDCyy4CJVQSC7a+p+OeQsF/NsPguVkmB+OL//k98OY=
 EOF
 
 # 解压后的安装包里，程序是 vonode，签名是 vonode.sig。
-# 单文件下载时，改用 vonode_<version>_linux_amd64_commercial 和对应的 .sig。
+# 单文件下载时，改用 vonode_<version>_linux_<arch>_commercial 和对应的 .sig。
 BIN=vonode_${VERSION}_linux_amd64_commercial/vonode
 printf 'vonode-binary-v1\n%s' "$(sha256sum "$BIN" | cut -d' ' -f1)" > vonode.msg
 base64 -d "$BIN.sig" > vonode.sig.bin
 openssl pkeyutl -verify -pubin -inkey vonode-update-key.pem -rawin -in vonode.msg -sigfile vonode.sig.bin
 ```
 
-最后一条命令必须输出 `Signature Verified Successfully`。
+最后一条命令必须输出 `Signature Verified Successfully`。每个安装包里还有 `SHA256SUMS` 和
+`SHA256SUMS.sig`，后者是用发布密钥对包内所有文件校验值所做的签名。
 
 ## 用 systemd 安装包安装（推荐）
 
@@ -1130,8 +1137,9 @@ sudo /opt/vonode/vonode pair -c /opt/vonode/config/config.yaml -host node.exampl
 Docker Compose 方式用 Docker Hub 上的镜像 `vonode/vonode`（自 v1.4.0 起发布）
 运行两个容器，节点功能与 systemd 方式相同：`vonode`（核心，负责驱动模组）和 `vonode-gateway`（无特权的
 SSH 服务，App 通过 TCP 2222 连接它）。配对、方案和 App 的用法与 systemd 安装包完全一样。镜像标签与版本对应
-（`v1.4.0` 对应 `1.4.0`，另有 `latest`），适用于 64 位 x86（amd64）主机。每个版本还会发布一个按 digest
-固定镜像的 `docker-compose.yml`。
+（`v1.4.0` 对应 `1.4.0`，另有 `latest`）。自 v1.4.2 起镜像为多平台镜像，适用于 64 位 x86（amd64）和
+64 位 ARM（arm64）主机，Docker 会自动选择合适的版本。每个版本还会发布一个按 digest 固定镜像的
+`docker-compose.yml`，自 v1.4.2 起用 Vonode 发布密钥签名。
 
 一台主机只用一种安装方式：不要在已安装 systemd 安装包的主机上再运行 Docker 方式。
 
@@ -1151,9 +1159,10 @@ curl -fsSL https://vonode.cc/install/compose.sh | sudo sh
 - 这个脚本也是发布资产 `compose-install.sh`（逐字节相同，SHA-256 为
   `ca1740be6b659dc44335775b712a9409f16a5592a5e00b8ba2bd8303540a4232`，也写在 `compose-install.sh.sha256` 中）。也可以先下载、阅读，再用
   `sudo sh compose-install.sh` 运行，不经管道。
-- 校验方式：v1.4.1 用脚本内置的 SHA-256 校验 `docker-compose.yml`（v1.4.1 在文件旁只发布了未签名的
-  `.sha256`）；自 v1.4.2 起用 Vonode 发布密钥校验发布签名 `docker-compose.yml.sig`。镜像始终按 digest 固定。
-- 在 arm64 主机上，它会安装实验性的预发布版本 `v1.4.1-arm64.1` 并给出提示。
+- 校验方式：脚本从带签名的发布清单 `latest-commercial.json` 中找到当前版本 v1.4.2，在使用
+  `docker-compose.yml` 之前用 Vonode 发布密钥校验它的签名 `docker-compose.yml.sig`。镜像始终按 digest 固定。
+- 同一条命令适用于 amd64 和 arm64 主机；在 arm64 主机上，它现在安装正式版 v1.4.2（不再是此前的实验性 arm64
+  预发布版本）。
 - 它不会停用 ModemManager，也不会改动其他服务；ModemManager 正在运行时，它会打印停用它的命令。不需要账号，
   不发送任何数据。
 
@@ -1250,6 +1259,42 @@ sudo ./setup.sh --host node.example.com --image vonode/vonode@sha256:<digest>
 发布说明里给出了 `vonode/vonode@sha256:<digest>` 形式的镜像。`--devices` 只映射当前存在的模组设备节点，
 而不是整个 `/dev`；`./setup.sh --help` 会说明每个选项。使用这种模式时，添加或移动模组后请重新运行
 `sudo ./setup.sh`；`sudo ./setup.sh --uninstall` 会停止节点并保留数据。
+
+## NAS（群晖、威联通、Unraid、TrueNAS）
+
+> [!WARNING]
+> **尚未在真实 NAS 硬件上测试。** 这些文件依照各厂商公开的文档编写，只做过离线检查；还没有人在群晖（Synology）、威联通（QNAP）、
+> Unraid 或 TrueNAS 设备上实际运行过。欢迎把使用结果发送到 support@vonode.cc。条件允许时，建议优先用一台小型
+> Linux 主机配合 systemd 安装包或 [Docker Compose 一键安装](#docker-compose-一键安装)。
+
+自 v1.4.2 起，每个版本都提供一个 NAS 包，用 NAS 自带的容器应用运行同样的两个容器，不需要 `setup.sh`。从
+[v1.4.2 版本页面](https://github.com/vonode/vonode-releases/releases/tag/v1.4.2)下载 `vonode-1.4.2-nas.tar.gz`
+及其 `.sha256`，用 `sha256sum -c vonode-1.4.2-nas.tar.gz.sha256` 校验后解压。每个目录里都有一份逐步说明 `README.md`。
+
+| 目录 | NAS 软件 | 安装方式 |
+|---|---|---|
+| `synology/` | DSM 7.2 及以上，Container Manager | Container Manager › 项目 › 新增，粘贴 `docker-compose.yml` |
+| `qnap/` | QTS / QuTS hero 5，Container Station 3 | Container Station › 应用程序 › 创建，粘贴 `docker-compose.yml` |
+| `unraid/` | Unraid 6.12 及以上，已启用 Docker | 把 `vonode.xml` 和 `vonode-gateway.xml` 复制到用户模板目录，再添加这两个容器 |
+| `truenas/` | TrueNAS SCALE 24.10（Electric Eel）及以上 | Apps › Discover Apps › ⋮ › Install via YAML，粘贴 `docker-compose.yml` |
+
+每个文件都固定到该版本镜像的 digest，与发布说明和 `docker-compose.yml` 中的相同。镜像是多平台的（amd64 和
+arm64），Docker 会自动选择；不支持 32 位 ARM 的 NAS 机型。
+
+- **主机网络和特权核心容器：** `vonode` 容器需要 `network_mode: host` 和 `privileged: true`（用于 Wi-Fi 通话隧道和
+  USB 模组）；`vonode-gateway` 始终无特权，只发布 TCP 2222。
+- **设备：** 核心容器获得 NAS 的整个 `/dev`，其中包括 `/dev/bus/usb` 和 `/dev/net/tun`。如果 NAS 不允许绑定
+  `/dev`，按 NAS 包里 README 的示例逐个列出设备。
+- **ModemManager 不能占用模组：** 原版 DSM、QTS 和 Unraid 不带 ModemManager；在 TrueNAS SCALE 上，如果它在运行，
+  请执行 `sudo systemctl disable --now ModemManager`。
+- **内核驱动：** 容器无法加载驱动。模组需要 NAS 内核里有 `option`、`qmi_wwan` 和 `cdc_wdm`。原版群晖 DSM 的内核
+  通常没有这些驱动（DSM 7 已不再支持 USB 3G/4G 上网卡），因此在原版 DSM 上模组方式很可能无法使用；威联通请按机型
+  检查。USB 读卡器配合你的 SIM 卡只需要 `/dev/bus/usb`，在这类 NAS 上更可行（仅 Wi-Fi 通话；读卡器线路需要订阅或
+  Vonode 终身版，免费方案不可用）。
+- 删除或重建应用时，不要删除命名卷：`vonode_gateway-private` 保存着已配对手机所固定的 SSH 主机密钥。
+
+通过 SSH 配对：`sudo docker exec -it vonode /app/vonode pair -c /app/config/config.yaml -host <NAS 地址> -port 2222`。
+升级时使用新版本的 NAS 包。
 
 ## 配对 App
 
