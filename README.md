@@ -52,7 +52,7 @@ Version v1.3.0 was briefly published and then withdrawn; it is not supported. In
 - [Install with Docker Compose](#install-with-docker-compose) · [one-click](#docker-compose-one-click)
 - [NAS (Synology, QNAP, Unraid, TrueNAS)](#nas-synology-qnap-unraid-truenas)
 - [Pair the app](#pair-the-app)
-- [Free plan, subscription or Lifetime](#free-plan-subscription-or-lifetime)
+- [Free plan or Lifetime](#free-plan-or-lifetime)
 - [Upgrade](#upgrade)
 - [Uninstall](#uninstall)
 - [Troubleshooting](#troubleshooting)
@@ -73,7 +73,7 @@ Version v1.3.0 was briefly published and then withdrawn; it is not supported. In
 
 There is no Vonode cloud between you and your numbers. The app talks to your node directly over
 encrypted SSH and pins the node's host key. Messages, call history and settings stay on the node you operate.
-A small relay run by VONODE LLC delivers Apple notifications and confirms subscriptions; it does not
+A small relay run by VONODE LLC delivers Apple notifications and confirms purchases; it does not
 store plaintext message content, and it sees only notification metadata such as the type and time of a notification. Details are in the [Privacy Policy](https://vonode.cc/privacy/).
 
 The node has no web interface: install it once, pair it with the app, and manage everything from
@@ -1338,7 +1338,7 @@ Every file is pinned to the release's image digest, the same as in the release n
   the NAS kernel. Stock Synology DSM kernels usually lack them (DSM 7 dropped USB 3G/4G dongles), so
   expect the modem path not to work on stock DSM; check QNAP per model. A USB card reader with your SIM
   needs only `/dev/bus/usb` and is the more likely option there (Wi-Fi calling only; card-reader lines
-  need a subscription or Vonode Lifetime, not the free plan).
+  need Vonode Lifetime, not the free plan).
 - Never remove the named volumes when you delete or re-create the app: `vonode_gateway-private` holds
   the SSH host key that paired phones pin.
 
@@ -1357,15 +1357,17 @@ The app and the node must reach each other at the address in the code. If the ap
 connection error, check the port forward or VPN first, then create a fresh code. To pair a second
 phone later, use **Move to a new phone** in the app; it shows a one-time QR code.
 
-## Free plan, subscription or Lifetime
+## Free plan or Lifetime
 
-Without a subscription or Lifetime the node runs the **free plan**: open the **Numbers** tab and choose the
+Without Vonode Lifetime the node runs the **free plan**: open the **Numbers** tab and choose the
 one number whose SMS you want to see. The choice cannot be changed later; a backup restore
-keeps it. The **Messages** tab then shows the SMS that number receives.
+keeps it. The **Messages** tab then shows the SMS that number receives (from node v1.4.2 also over
+Wi-Fi Calling), and you can use Filtered, spam marking and sender rules.
 
-Every other feature (calls, Wi-Fi calling, sending SMS, notifications, eSIM profiles, proxies,
-automations, more numbers) needs a Vonode subscription or Vonode Lifetime for this node, bought in the
-app: open **More › Subscription**. Each subscription or Lifetime purchase unlocks one node. You can move it to another node in the app up to 3 times in 30
+Every other feature (calls, sending SMS, notifications, eSIM profiles, proxies, automations, more numbers)
+needs **Vonode Lifetime** for this node: a one-time In-App Purchase that does not renew. Open
+**More › Subscription** in the app. Subscriptions are no longer sold since 2026-10-21; an existing
+subscription keeps working until the end of its current period. Each Lifetime purchase unlocks one node. You can move it to another node in the app up to 3 times in 30
 days; reinstalling the node software on new hardware or restoring a backup there also counts as a move. The node unlocks within seconds and restarts
 into full mode; then add your modules with **Add Modem** and switch Wi-Fi calling on per SIM.
 
