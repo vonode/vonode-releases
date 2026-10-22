@@ -5,7 +5,7 @@ Vonode places Wi-Fi Calling (VoWiFi) calls and texts with the SIM in your node. 
 
 - Wi-Fi Calling may need to be enabled on your plan by your carrier.
 - Some carriers check a Wi-Fi Calling entitlement for the line (TS.43; T-Mobile US and AT&T, for example), and some carriers only allow certified devices. Vonode never changes the IMEI.
-- Mainland China (MCC 460/461) and India (MCC 404/405/406) SIMs: Wi-Fi Calling is not offered (92 network codes); calls and SMS over the mobile network still work.
+- Mainland China (MCC 460/461) and India (MCC 404/405/406) SIMs: Wi-Fi Calling is not offered (92 network codes). From node v1.4.5, China mainland numbers (MCC 460/461 or ICCID 8986) are not supported at all; Indian SIMs keep calls and SMS over the mobile network.
 - Rows that are not marked “Tested by us” have not been tested by us — results depend on the carrier.
 - Carriers that are not listed still get the standard 3GPP settings and may work; results depend on the carrier.
 - Tried a carrier? Tell us at support@vonode.cc or in the Telegram group https://t.me/vonode_group.

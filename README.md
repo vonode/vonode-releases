@@ -86,7 +86,7 @@ Check the full list on the **[hardware page](https://vonode.cc/hardware/)** befo
 | Item | Requirement |
 |---|---|
 | **Host computer** | 64-bit x86 (amd64) or 64-bit ARM (arm64) Linux: Debian 12, Ubuntu 22.04 or later, or Fedora, with systemd for the install package or Docker Engine with Compose v2 for Docker. Root access; the systemd package also needs the full `iproute2` package (the Docker image brings its own). An Intel N100 mini PC, a used thin client or a NUC works well. From v1.4.2, arm64 ships alongside amd64 as a regular release: a Raspberry Pi 4 or 5 works with a 64-bit OS (for example Raspberry Pi OS 64-bit); a 32-bit OS does not. 2 GB RAM and 4 GB disk are enough for the node. Verified platform: Ubuntu 22.04, amd64. |
-| **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to five modules per node. |
+| **Cellular module** | A Qualcomm-based Quectel module with USB serial (AT) and QMI ports. Tested: the DJI Cellular module (Quectel EG25-G inside, after a one-time USB identity switch described on the hardware page). EG25-G, EC25, EC20, EC21/EG21, EM05/EM06/EG06 and RM500Q are supported by the code but not tested yet. Up to four modules per node (from node v1.4.5, at most four physical SIM sources per node, modems and card-reader lines together). |
 | **Antennas and power** | Attach both antennas (main and diversity). Use a powered USB hub when you connect more than one module. |
 | **SIM and network** | A SIM with its PIN removed, or a removable eUICC card for eSIM. Wi-Fi calling enabled on the plan by your carrier. TCP port 2222 reachable from the phone, through a port forward or a VPN such as WireGuard or Tailscale. |
 | **App** | Vonode for iPhone and iPad, version 1.4.0 or later, iOS and iPadOS 17 or later. Free download on the App Store. The Vonode app is available on the App Store in all countries and regions except mainland China. |
@@ -105,7 +105,7 @@ Vonode places Wi-Fi Calling (VoWiFi) calls and texts with the SIM in your node. 
 
 - Wi-Fi Calling may need to be enabled on your plan by your carrier.
 - Some carriers check a Wi-Fi Calling entitlement for the line (TS.43; T-Mobile US and AT&T, for example), and some carriers only allow certified devices. Vonode never changes the IMEI.
-- Mainland China (MCC 460/461) and India (MCC 404/405/406) SIMs: Wi-Fi Calling is not offered (92 network codes); calls and SMS over the mobile network still work.
+- Mainland China (MCC 460/461) and India (MCC 404/405/406) SIMs: Wi-Fi Calling is not offered (92 network codes). From node v1.4.5, China mainland numbers (MCC 460/461 or ICCID 8986) are not supported at all; Indian SIMs keep calls and SMS over the mobile network.
 - Rows that are not marked “Tested by us” have not been tested by us — results depend on the carrier.
 - Carriers that are not listed still get the standard 3GPP settings and may work; results depend on the carrier.
 - Tried a carrier? Tell us at support@vonode.cc or in the Telegram group https://t.me/vonode_group.

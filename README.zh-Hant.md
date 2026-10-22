@@ -81,7 +81,7 @@ v1.3.0 曾短暫發布後撤回，不再提供支援，請安裝 v1.4.0 或更�
 | 項目 | 需求 |
 |---|---|
 | **主機** | 64 位元 x86（amd64）或 64 位元 ARM（arm64）Linux：Debian 12、Ubuntu 22.04 以上版本，或 Fedora；安裝套件方式需要 systemd，Docker 方式需要 Docker Engine 和 Compose v2。需要 root 權限；systemd 安裝套件還需要完整的 `iproute2` 套件（Docker 映像檔已內建）。Intel N100 迷你電腦、二手精簡型電腦或 NUC 都適合。自 v1.4.2 起，arm64 與 amd64 一同以正式版本發行：Raspberry Pi 4 或 5 安裝 64 位元系統（例如 64 位元 Raspberry Pi OS）即可使用，32 位元系統不行。節點本身只需 2 GB 記憶體和 4 GB 磁碟空間。已驗證平台：Ubuntu 22.04，amd64。 |
-| **行動網路模組** | 具備 USB 序列埠（AT）和 QMI 介面、採用高通平台的 Quectel 模組。已實測：DJI Cellular 模組（內建 Quectel EG25-G，需依硬體頁面的說明一次性切換 USB 識別碼）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在程式碼中支援，但尚未實測。每個節點最多連接五個模組。 |
+| **行動網路模組** | 具備 USB 序列埠（AT）和 QMI 介面、採用高通平台的 Quectel 模組。已實測：DJI Cellular 模組（內建 Quectel EG25-G，需依硬體頁面的說明一次性切換 USB 識別碼）。EG25-G、EC25、EC20、EC21/EG21、EM05/EM06/EG06 和 RM500Q 已在程式碼中支援，但尚未實測。每個節點最多連接四個模組（自節點 v1.4.5 起，每個節點最多使用 4 個實體 SIM 來源，模組與讀卡器線路合計）。 |
 | **天線和供電** | 主天線和分集天線都要接上。連接多個模組時，請使用有外接電源的 USB 集線器。 |
 | **SIM 卡與網路** | 已關閉 PIN 碼的 SIM 卡；如需 eSIM，請使用可插拔 eUICC 卡。電信業者已在資費方案中開通 Wi-Fi 通話。手機能連到 TCP 2222 連接埠：在路由器上設定連接埠轉送，或使用 WireGuard、Tailscale 等 VPN。 |
 | **App** | iPhone 和 iPad 上的 Vonode 1.4.0 或更新版本，需要 iOS 或 iPadOS 17 以上版本。App Store 免費下載。 |
@@ -101,7 +101,7 @@ Vonode 用節點裡的 SIM 卡進行 Wi-Fi 通話（VoWiFi）和收發簡訊。�
 
 - 可能需要電信業者在你的方案上開通 Wi-Fi 通話。
 - 部分電信業者會核對線路的 Wi-Fi 通話授權（TS.43，例如 T-Mobile US 和 AT&T），部分電信業者只允許經過認證的裝置。Vonode 從不修改 IMEI。
-- 中國大陸（MCC 460/461）和印度（MCC 404/405/406）的 SIM 卡：不提供 Wi-Fi 通話（92 個網路代碼）；透過行動網路的通話和簡訊照常可用。
+- 中國大陸（MCC 460/461）和印度（MCC 404/405/406）的 SIM 卡：不提供 Wi-Fi 通話（92 個網路代碼）。自節點 v1.4.5 起完全不支援中國大陸號碼（MCC 460/461 或 ICCID 8986）；印度的 SIM 卡透過行動網路的通話和簡訊照常可用。
 - 未標「已實測」的項目我們沒有實測——結果取決於電信業者。
 - 未列出的電信業者也會使用標準 3GPP 設定，可能可以使用；結果取決於電信業者。
 - 試過某家電信業者？請告訴我們：support@vonode.cc 或 Telegram 群組 https://t.me/vonode_group。
